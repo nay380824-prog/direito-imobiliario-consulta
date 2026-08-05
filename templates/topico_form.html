@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Editar' if t else 'Novo' }} tópico — Direito Imobiliário{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-4">
+  <i class="bi bi-{{ 'pencil-fill' if t else 'plus-circle-fill' }} me-2"></i>
+  {{ 'Editar tópico' if t else 'Novo tópico' }}
+</h4>
+
+<form method="post">
+  <div class="row g-3 mb-3">
+    <div class="col-md-2">
+      <label class="form-label fw-semibold">Número</label>
+      <input type="text" name="numero" class="form-control" placeholder="ex: 33" value="{{ t.numero if t else form.get('numero','') }}" required>
+    </div>
+    <div class="col-md-10">
+      <label class="form-label fw-semibold">Título</label>
+      <input type="text" name="titulo" class="form-control" placeholder="ex: Direito de Superfície" value="{{ t.titulo if t else form.get('titulo','') }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label fw-semibold">Livro / fonte</label>
+      <input type="text" name="livro" class="form-control" placeholder="ex: Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática" value="{{ t.livro if t else form.get('livro','') }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label fw-semibold">Tags <span class="text-muted fw-normal">(separadas por vírgula)</span></label>
+      <input type="text" name="tags" class="form-control" placeholder="ex: usucapião, registro, prazos" value="{{ t.tags if t else form.get('tags','') }}">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">
+      <i class="bi bi-chat-left-text-fill me-1"></i>Explicação em linguagem simples
+    </label>
+    <div class="form-text mb-1">O que é, por que importa, um exemplo do dia a dia. Evite juridiquês; se precisar de um termo técnico, explique entre parênteses.</div>
+    <textarea name="explicacao_simples_md" class="form-control" rows="10" placeholder="Escreva aqui em Markdown...">{{ t.explicacao_simples_md if t else form.get('explicacao_simples_md','') }}</textarea>
+  </div>
+
+  <div class="mb-4">
+    <label class="form-label fw-semibold">
+      <i class="bi bi-bank2 me-1"></i>Texto técnico / fonte original
+    </label>
+    <div class="form-text mb-1">Conceitos, base legal, jurisprudência, fichas técnicas (tabelas Markdown) e pontos práticos (use <code>&gt; ⚠ ...</code> para destacar). Preserve com precisão — é o que você usará para fundamentar decisões.</div>
+    <textarea name="conteudo_md" class="form-control" rows="16" placeholder="Escreva aqui em Markdown...">{{ t.conteudo_md if t else form.get('conteudo_md','') }}</textarea>
+  </div>
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-primary">
+      <i class="bi bi-check-circle-fill me-1"></i>Salvar
+    </button>
+    <a href="{{ url_for('topico_detalhe', id=t.id) if t else url_for('home') }}" class="btn btn-outline-secondary">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

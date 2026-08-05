@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}{{ t.titulo }} — Direito Imobiliário{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Início</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('livro', livro=t.livro) }}">{{ t.livro }}</a></li>
+    <li class="breadcrumb-item active">{{ t.titulo }}</li>
+  </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+  <div>
+    <h3 class="fw-bold mb-1"><span class="badge bg-secondary me-2">{{ t.numero }}</span>{{ t.titulo }}</h3>
+    {% if t.tag_list %}
+      <div>
+        {% for tag in t.tag_list %}
+          <span class="badge bg-light text-dark border me-1">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="btn-group">
+    <a href="{{ url_for('topico_editar', id=t.id) }}" class="btn btn-outline-secondary btn-sm">
+      <i class="bi bi-pencil-fill me-1"></i>Editar
+    </a>
+    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#excluirModal">
+      <i class="bi bi-trash-fill me-1"></i>Excluir
+    </button>
+  </div>
+</div>
+
+<ul class="nav nav-tabs" id="conteudoTabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="simples-tab" data-bs-toggle="tab" data-bs-target="#simples-pane" type="button" role="tab">
+      <i class="bi bi-chat-left-text-fill me-1"></i>Linguagem simples
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="tecnico-tab" data-bs-toggle="tab" data-bs-target="#tecnico-pane" type="button" role="tab">
+      <i class="bi bi-bank2 me-1"></i>Texto técnico / Fonte original
+    </button>
+  </li>
+</ul>
+<div class="tab-content bg-white border border-top-0 rounded-bottom p-4 shadow-sm">
+  <div class="tab-pane fade show active conteudo-render" id="simples-pane" role="tabpanel">
+    {% if t.explicacao_simples_md %}
+      {{ t.explicacao_simples_md|markdown|safe }}
+    {% else %}
+      <p class="text-muted fst-italic">Ainda não há explicação em linguagem simples para este tópico. Veja a aba "Texto técnico".</p>
+    {% endif %}
+  </div>
+  <div class="tab-pane fade conteudo-render conteudo-tecnico" id="tecnico-pane" role="tabpanel">
+    {{ t.conteudo_md|markdown|safe }}
+  </div>
+</div>
+
+<div class="modal fade" id="excluirModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Excluir tópico</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir "<strong>{{ t.titulo }}</strong>"? Essa ação não pode ser desfeita.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="post" action="{{ url_for('topico_excluir', id=t.id) }}">
+          <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
