@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Direito Imobiliário — Consulta</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f2fa;min-height:100vh;padding:1.5rem}
+.app{max-width:900px;margin:0 auto}
+
+/* LOGIN */
+.login-overlay{position:fixed;inset:0;background:#f4f2fa;display:flex;align-items:center;justify-content:center;z-index:999}
+.login-box{background:#fff;border-radius:12px;border:0.5px solid #e3ddf0;padding:36px 28px;width:100%;max-width:340px;text-align:center}
+.login-logo{font-size:32px;margin-bottom:12px}
+.login-title{font-size:16px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.login-sub{font-size:12px;color:#999;margin-bottom:24px}
+.login-input{width:100%;border:0.5px solid #ddd;border-radius:8px;padding:10px 12px;font-size:14px;color:#333;font-family:inherit;outline:none;margin-bottom:10px;text-align:center;letter-spacing:.15em}
+.login-input:focus{border-color:#5b3fa0}
+.login-btn{width:100%;background:#5b3fa0;color:#fff;border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:500;cursor:pointer}
+.login-btn:hover{background:#4a3384}
+.login-err{font-size:11px;color:#E24B4A;margin-top:8px;min-height:16px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:20px;font-weight:600;color:#1a1a1a}
+.topbar-sub{font-size:12px;color:#888;margin-top:2px}
+.btn-new{background:#5b3fa0;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.btn-new:hover{background:#4a3384}
+
+/* SEARCH / FILTERS */
+.search-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.search-input{flex:2;min-width:200px;border:0.5px solid #ccc;border-radius:20px;padding:8px 14px;font-size:13px;color:#333;background:#fff;font-family:inherit;outline:none}
+.search-input:focus{border-color:#5b3fa0}
+.livro-select{flex:1;min-width:160px;padding:8px 10px;border-radius:8px;border:0.5px solid #ccc;font-size:12px;background:#fff;font-family:inherit}
+.tag-hdr{font-size:11px;color:#888;cursor:pointer;margin-bottom:8px;user-select:none}
+.tag-body{display:none;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tag-body.open{display:flex}
+.tag-btn{padding:4px 10px;border-radius:14px;border:0.5px solid #ccc;background:#fff;color:#666;font-size:11px;cursor:pointer}
+.tag-btn.active{background:#5b3fa0;color:#fff;border-color:#5b3fa0}
+
+/* CARDS */
+.topico-list{display:flex;flex-direction:column;gap:8px}
+.topico-card{background:#fff;border:0.5px solid #e3ddf0;border-radius:0 10px 10px 0;border-left:3px solid #5b3fa0;padding:11px 14px;cursor:pointer;transition:border-color .15s}
+.topico-card:hover{border-left-color:#4a3384;background:#fbfaff}
+.topico-numero{font-size:9px;font-weight:700;color:#5b3fa0;background:#efe9fa;padding:2px 8px;border-radius:10px;margin-right:6px}
+.topico-titulo{font-size:14px;font-weight:600;color:#1a1a1a}
+.topico-livro{font-size:11px;color:#999;margin-top:3px}
+.topico-tags{margin-top:6px;display:flex;gap:5px;flex-wrap:wrap}
+.topico-tag{font-size:9px;color:#aaa;background:#f5f4f0;padding:2px 7px;border-radius:10px}
+
+#loading,#empty{display:none;text-align:center;padding:30px;color:#bbb;font-size:12px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-start;justify-content:center;z-index:200;padding:1.5rem;overflow-y:auto}
+.tp-modal{background:#fff;border-radius:14px;width:100%;max-width:760px;margin:auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.tp-modal-stripe{height:4px;width:100%;background:#5b3fa0}
+.tp-modal-header{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;border-bottom:0.5px solid #e3ddf0;gap:10px}
+.tp-modal-title{font-size:15px;font-weight:600;color:#1a1a1a}
+.tp-modal-sub{font-size:11px;color:#999;margin-top:3px}
+.tp-modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#888;line-height:1;padding:2px 6px;flex-shrink:0}
+.tp-modal-close:hover{color:#333}
+.tp-modal-tabs{display:flex;border-bottom:0.5px solid #e3ddf0;background:#fafaf8}
+.tp-modal-tab{padding:11px 16px;font-size:12px;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.tp-modal-tab:hover{color:#555}
+.tp-modal-tab.active{border-bottom-color:#5b3fa0;color:#5b3fa0}
+.tp-modal-body{padding:20px;max-height:56vh;overflow-y:auto}
+.tp-pane{display:none}
+.tp-pane.active{display:block}
+.tp-modal-footer{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-top:0.5px solid #e3ddf0;gap:10px;flex-wrap:wrap}
+.btn-plain{background:none;border:0.5px solid #ddd;color:#666;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;font-family:inherit}
+.btn-plain:hover{background:#f4f2fa}
+.btn-danger{color:#E24B4A;border-color:#f3c9c9}
+.btn-danger:hover{background:#FCEBEB}
+
+/* MARKDOWN RENDER */
+.md h3,.md h4,.md h5{color:#1a1a1a;margin:14px 0 8px}
+.md h3:first-child,.md h4:first-child,.md h5:first-child{margin-top:0}
+.md h3{font-size:16px}
+.md h4{font-size:14px}
+.md h5{font-size:13px}
+.md p{font-size:13px;line-height:1.7;color:#333;margin-bottom:10px}
+.md ul{margin:0 0 10px 20px}
+.md li{font-size:13px;line-height:1.6;color:#333;margin-bottom:4px}
+.md table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12.5px}
+.md th,.md td{border:1px solid #e3ddf0;padding:7px 10px;text-align:left;vertical-align:top}
+.md th{background:#efe9fa;font-weight:600;color:#4a3384}
+.md blockquote{background:#FFF8E1;border-left:3px solid #d4a017;border-radius:0 8px 8px 0;padding:9px 14px;margin:0 0 12px;font-size:12.5px;color:#6b5200}
+.md blockquote p{margin-bottom:6px;color:#6b5200;font-size:12.5px}
+.md blockquote p:last-child{margin-bottom:0}
+.md em{color:#666}
+
+/* FORM */
+.tp-form{background:#fff;border:0.5px solid #ddd;border-radius:10px;padding:14px;margin-bottom:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:520px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.form-input,.form-textarea{border:0.5px solid #ddd;border-radius:8px;padding:8px 10px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;background:#fff;width:100%}
+.form-input:focus,.form-textarea:focus{border-color:#5b3fa0}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.5}
+.form-hint{font-size:10.5px;color:#999;margin-top:2px}
+.form-actions{display:flex;gap:8px;margin-top:4px}
+.btn-save{background:#5b3fa0;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-save:hover{background:#4a3384}
+</style>
+</head>
+<body>
+
+<div id="login-overlay" class="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">📖</div>
+    <div class="login-title">Direito Imobiliário</div>
+    <div class="login-sub">Fonte de consulta — digite a senha</div>
+    <input class="login-input" type="password" id="login-senha" placeholder="••••••••" onkeydown="if(event.key==='Enter')verificarSenha()">
+    <button class="login-btn" onclick="verificarSenha()">Entrar</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<div id="main-app" class="app" style="display:none">
+  <div class="topbar">
+    <div>
+      <h1>📖 Direito Imobiliário</h1>
+      <div class="topbar-sub" id="total-label">Fonte de consulta</div>
+    </div>
+    <button class="btn-new" onclick="toggleNovoForm()">+ Novo tópico</button>
+  </div>
+
+  <div id="novo-form" class="tp-form" style="display:none"></div>
+
+  <div class="search-row">
+    <input type="text" id="busca-input" class="search-input" placeholder="Buscar por palavra-chave, artigo, tema..." oninput="debounceSearch()">
+    <select id="livro-select" class="livro-select" onchange="carregarTopicos()">
+      <option value="">Todos os livros</option>
+    </select>
+  </div>
+
+  <div class="tag-hdr" id="tag-hdr" onclick="toggleTagFilters()" style="display:none">🏷 Filtrar por tags</div>
+  <div class="tag-body" id="tag-body"></div>
+
+  <div id="loading">Buscando...</div>
+  <div id="empty">Nenhum tópico encontrado.</div>
+  <div id="topico-list" class="topico-list"></div>
+</div>
+
+<div id="modal-overlay" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="tp-modal">
+    <div class="tp-modal-stripe"></div>
+    <div class="tp-modal-header">
+      <div>
+        <div class="tp-modal-title" id="modal-title"></div>
+        <div class="tp-modal-sub" id="modal-sub"></div>
+      </div>
+      <button class="tp-modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="tp-modal-tabs">
+      <button class="tp-modal-tab active" id="tab-btn-simples" onclick="switchTab('simples')">📖 Linguagem simples</button>
+      <button class="tp-modal-tab" id="tab-btn-tecnico" onclick="switchTab('tecnico')">⚖️ Texto técnico e fonte</button>
+    </div>
+    <div class="tp-modal-body">
+      <div class="tp-pane md active" id="pane-simples"></div>
+      <div class="tp-pane md" id="pane-tecnico"></div>
+    </div>
+    <div class="tp-modal-footer">
+      <button class="btn-plain btn-danger" onclick="excluirTopicoAtual()">Excluir</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn-plain" onclick="editarTopicoAtual()">Editar</button>
+        <button class="btn-plain" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPA_URL='https://cnntwavnltnaxpbpkzrd.supabase.co';
+var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubnR3YXZubHRuYXhwYnBrenJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU5NjUzNjAsImV4cCI6MjEwMTU0MTM2MH0.XeQ4T7MEqFQfJyXXAgsQmv-CNjLFYUMDKgO6aYpEL5c';
+
+// ─── AUTH ─────────────────────────────────────────────────────────────────
+async function hashSenha(s){
+  var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+}
+async function verificarSenha(){
+  var val=document.getElementById('login-senha').value;
+  if(!val){document.getElementById('login-err').textContent='Digite a senha.';return;}
+  var h=await hashSenha(val);
+  var correta=await hashSenha('direito2026');
+  if(h===correta){
+    document.getElementById('login-overlay').style.display='none';
+    document.getElementById('main-app').style.display='block';
+    sessionStorage.setItem('direito_auth','1');
+    iniciarApp();
+  }else{
+    document.getElementById('login-err').textContent='Senha incorreta.';
+    document.getElementById('login-senha').value='';
+    document.getElementById('login-senha').focus();
+  }
+}
+
+// ─── SUPABASE ─────────────────────────────────────────────────────────────
+async function dbFetch(path,opts){
+  opts=opts||{};
+  var r=await fetch(SUPA_URL+'/rest/v1/'+path,{
+    headers:Object.assign({'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation'},opts.headers||{}),
+    method:opts.method||'GET',body:opts.body
+  });
+  if(!r.ok)throw new Error(await r.text());
+  var txt=await r.text();return txt?JSON.parse(txt):null;
+}
+
+// ─── STATE ────────────────────────────────────────────────────────────────
+var allResults=[];
+var activeTags=[];
+var searchTimer=null;
+var editingId=null;
+var currentTopico=null;
+
+function debounceSearch(){
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(carregarTopicos,400);
+}
+
+function toggleTagFilters(){
+  document.getElementById('tag-body').classList.toggle('open');
+}
+
+async function iniciarApp(){
+  try{
+    var todos=await dbFetch('topicos_direito?select=livro&order=livro');
+    var livros=Array.from(new Set((todos||[]).map(function(t){return t.livro;})));
+    var sel=document.getElementById('livro-select');
+    livros.forEach(function(l){
+      var opt=document.createElement('option');
+      opt.value=l;opt.textContent=l;
+      sel.appendChild(opt);
+    });
+  }catch(e){console.error(e);}
+  carregarTopicos();
+}
+
+async function carregarTopicos(){
+  var termo=document.getElementById('busca-input').value.trim();
+  var livro=document.getElementById('livro-select').value;
+  var loading=document.getElementById('loading');
+  var list=document.getElementById('topico-list');
+  var empty=document.getElementById('empty');
+  loading.style.display='block';
+  list.innerHTML='';
+  empty.style.display='none';
+  try{
+    var params=['select=*'];
+    if(livro)params.push('livro=eq.'+encodeURIComponent(livro));
+    if(termo)params.push('busca=wfts(portuguese).'+encodeURIComponent(termo));
+    params.push('order=numero');
+    var rows=await dbFetch('topicos_direito?'+params.join('&'));
+    allResults=(rows||[]).slice().sort(function(a,b){return (parseFloat(a.numero)||0)-(parseFloat(b.numero)||0);});
+  }catch(e){
+    console.error('Erro na busca:',e);
+    allResults=[];
+  }
+  loading.style.display='none';
+  document.getElementById('total-label').textContent=allResults.length+' tópico'+(allResults.length!==1?'s':'')+' encontrado'+(allResults.length!==1?'s':'');
+  buildTagFilters();
+  renderList();
+}
+
+function buildTagFilters(){
+  var tagSet={};
+  allResults.forEach(function(r){(r.tags||[]).forEach(function(t){tagSet[t]=true;});});
+  var allTags=Object.keys(tagSet).sort();
+  var hdr=document.getElementById('tag-hdr');
+  var wrap=document.getElementById('tag-body');
+  hdr.style.display=allTags.length?'block':'none';
+  hdr.textContent='🏷 Filtrar por tags ('+allTags.length+')';
+  wrap.innerHTML=allTags.map(function(t){
+    var active=activeTags.indexOf(t)>-1;
+    return '<button class="tag-btn'+(active?' active':'')+'" data-tag="'+escapeHtml(t)+'" onclick="toggleTag(this)">'+escapeHtml(t)+'</button>';
+  }).join('');
+}
+
+function toggleTag(btn){
+  var tag=btn.getAttribute('data-tag');
+  var idx=activeTags.indexOf(tag);
+  if(idx>-1)activeTags.splice(idx,1);
+  else activeTags.push(tag);
+  btn.classList.toggle('active');
+  renderList();
+}
+
+function renderList(){
+  var filtered=allResults.filter(function(r){
+    if(!activeTags.length)return true;
+    return (r.tags||[]).some(function(t){return activeTags.indexOf(t)>-1;});
+  });
+  var list=document.getElementById('topico-list');
+  var empty=document.getElementById('empty');
+  if(!filtered.length){
+    list.innerHTML='';
+    empty.style.display='block';
+    return;
+  }
+  empty.style.display='none';
+  list.innerHTML=filtered.map(function(r){
+    var tagsHtml=(r.tags||[]).map(function(t){return '<span class="topico-tag">'+escapeHtml(t)+'</span>';}).join('');
+    return '<div class="topico-card" onclick="abrirModal(\''+r.id+'\')">'
+      +'<span class="topico-numero">'+escapeHtml(r.numero)+'</span>'
+      +'<span class="topico-titulo">'+escapeHtml(r.titulo)+'</span>'
+      +'<div class="topico-livro">'+escapeHtml(r.livro)+'</div>'
+      +(tagsHtml?'<div class="topico-tags">'+tagsHtml+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────
+function abrirModal(id){
+  var t=allResults.find(function(r){return r.id===id;});
+  if(!t)return;
+  currentTopico=t;
+  document.getElementById('modal-title').textContent=t.numero+'. '+t.titulo;
+  document.getElementById('modal-sub').textContent=t.livro;
+  document.getElementById('pane-simples').innerHTML=t.explicacao_simples?renderMdLite(t.explicacao_simples):'<p style="color:#aaa;font-style:italic">Ainda não há explicação em linguagem simples para este tópico. Veja a aba "Texto técnico".</p>';
+  document.getElementById('pane-tecnico').innerHTML=renderMdLite(t.conteudo_tecnico||'');
+  switchTab('simples');
+  document.getElementById('modal-overlay').style.display='flex';
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').style.display='none';
+  currentTopico=null;
+}
+
+function switchTab(which){
+  ['simples','tecnico'].forEach(function(k){
+    document.getElementById('tab-btn-'+k).classList.toggle('active',k===which);
+    document.getElementById('pane-'+k).classList.toggle('active',k===which);
+  });
+}
+
+async function excluirTopicoAtual(){
+  if(!currentTopico)return;
+  if(!confirm('Excluir "'+currentTopico.titulo+'"? Essa ação não pode ser desfeita.'))return;
+  try{
+    await dbFetch('topicos_direito?id=eq.'+currentTopico.id,{method:'DELETE',headers:{'Prefer':''}});
+    closeModal();
+    carregarTopicos();
+  }catch(e){
+    console.error(e);
+    alert('Erro ao excluir. Verifique a conexão e tente novamente.');
+  }
+}
+
+function editarTopicoAtual(){
+  if(!currentTopico)return;
+  var t=currentTopico;
+  closeModal();
+  abrirFormTopico(t);
+}
+
+// ─── FORM: NOVO / EDITAR ────────────────────────────────────────────────
+function toggleNovoForm(){
+  var f=document.getElementById('novo-form');
+  if(f.style.display==='block'&&editingId===null){
+    f.style.display='none';
+    return;
+  }
+  abrirFormTopico(null);
+}
+
+function abrirFormTopico(t){
+  editingId=t?t.id:null;
+  var f=document.getElementById('novo-form');
+  f.innerHTML=formHtml(t);
+  f.style.display='block';
+  f.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function formHtml(t){
+  var tagsStr=t&&t.tags?t.tags.join(', '):'';
+  return ''
+    +'<div class="form-grid">'
+    +'<div class="form-group"><label class="form-label">Número</label><input class="form-input" id="f-numero" placeholder="ex: 33" value="'+escapeAttr(t?t.numero:'')+'"></div>'
+    +'<div class="form-group"><label class="form-label">Título</label><input class="form-input" id="f-titulo" placeholder="ex: Direito de Superfície" value="'+escapeAttr(t?t.titulo:'')+'"></div>'
+    +'<div class="form-group full"><label class="form-label">Livro / fonte</label><input class="form-input" id="f-livro" placeholder="ex: Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática" value="'+escapeAttr(t?t.livro:'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática')+'"></div>'
+    +'<div class="form-group full"><label class="form-label">Tags (separadas por vírgula)</label><input class="form-input" id="f-tags" placeholder="ex: usucapião, registro, prazos" value="'+escapeAttr(tagsStr)+'"></div>'
+    +'<div class="form-group full"><label class="form-label">📖 Explicação em linguagem simples</label>'
+    +'<textarea class="form-textarea" id="f-simples" placeholder="O que é, por que importa, um exemplo do dia a dia...">'+escapeHtml(t?t.explicacao_simples:'')+'</textarea>'
+    +'<div class="form-hint">Evite juridiquês; se precisar de um termo técnico, explique entre parênteses.</div></div>'
+    +'<div class="form-group full"><label class="form-label">⚖️ Texto técnico / fonte original</label>'
+    +'<textarea class="form-textarea" id="f-tecnico" placeholder="Conceitos, base legal, jurisprudência, fichas técnicas (tabelas Markdown), pontos práticos (use &gt; ⚠ ...)...">'+escapeHtml(t?t.conteudo_tecnico:'')+'</textarea>'
+    +'<div class="form-hint">Preserve com precisão — é o que você usará para fundamentar decisões.</div></div>'
+    +'</div>'
+    +'<div class="form-actions">'
+    +'<button class="btn-save" onclick="salvarTopico()">Salvar</button>'
+    +'<button class="btn-plain" onclick="fecharForm()">Cancelar</button>'
+    +'</div>';
+}
+
+function fecharForm(){
+  editingId=null;
+  document.getElementById('novo-form').style.display='none';
+  document.getElementById('novo-form').innerHTML='';
+}
+
+async function salvarTopico(){
+  var numero=document.getElementById('f-numero').value.trim();
+  var titulo=document.getElementById('f-titulo').value.trim();
+  var livro=document.getElementById('f-livro').value.trim();
+  var tagsRaw=document.getElementById('f-tags').value.trim();
+  var simples=document.getElementById('f-simples').value.trim();
+  var tecnico=document.getElementById('f-tecnico').value.trim();
+  var tags=tagsRaw?tagsRaw.split(',').map(function(t){return t.trim();}).filter(Boolean):[];
+
+  if(!numero||!titulo||!livro){
+    alert('Preencha ao menos número, título e livro.');
+    return;
+  }
+
+  var payload={numero:numero,titulo:titulo,livro:livro,tags:tags,explicacao_simples:simples,conteudo_tecnico:tecnico};
+
+  try{
+    if(editingId){
+      payload.updated_at=new Date().toISOString();
+      await dbFetch('topicos_direito?id=eq.'+editingId,{method:'PATCH',body:JSON.stringify(payload)});
+    }else{
+      await dbFetch('topicos_direito',{method:'POST',body:JSON.stringify(payload)});
+    }
+    fecharForm();
+    carregarTopicos();
+  }catch(e){
+    console.error(e);
+    alert('Erro ao salvar o tópico. Verifique a conexão e tente novamente.');
+  }
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────
+function escapeHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function escapeAttr(s){
+  return escapeHtml(s).replace(/"/g,'&quot;');
+}
+
+// ─── MARKDOWN LEVE (sem dependências externas) ────────────────────────────
+function inlineMd(text){
+  var h=escapeHtml(text);
+  h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  h=h.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  return h;
+}
+
+function renderMdLite(md){
+  var lines=(md||'').replace(/\r\n/g,'\n').split('\n');
+  var out=[];
+  var i=0;
+  var para=[];
+
+  function flushPara(){
+    if(para.length){
+      out.push('<p>'+inlineMd(para.join(' '))+'</p>');
+      para=[];
+    }
+  }
+
+  while(i<lines.length){
+    var line=lines[i];
+
+    // headers
+    var hm=line.match(/^(#{1,6})\s+(.*)$/);
+    if(hm){
+      flushPara();
+      var level=hm[1].length;
+      var tag=level<=1?'h3':(level===2?'h4':'h5');
+      out.push('<'+tag+'>'+inlineMd(hm[2])+'</'+tag+'>');
+      i++;continue;
+    }
+
+    // blockquote
+    if(/^>/.test(line)){
+      flushPara();
+      var bqLines=[];
+      while(i<lines.length&&/^>/.test(lines[i])){
+        bqLines.push(lines[i].replace(/^>\s?/,''));
+        i++;
+      }
+      out.push('<blockquote>'+renderMdLite(bqLines.join('\n'))+'</blockquote>');
+      continue;
+    }
+
+    // table
+    if(/^\|/.test(line.trim())){
+      flushPara();
+      var rows=[];
+      while(i<lines.length&&/^\|/.test(lines[i].trim())){
+        rows.push(lines[i].trim());
+        i++;
+      }
+      if(rows.length>=2){
+        var headCells=rows[0].split('|').slice(1,-1).map(function(c){return c.trim();});
+        var bodyRows=rows.slice(2).map(function(r){return r.split('|').slice(1,-1).map(function(c){return c.trim();});});
+        var t='<table><thead><tr>'+headCells.map(function(c){return '<th>'+inlineMd(c)+'</th>';}).join('')+'</tr></thead><tbody>';
+        bodyRows.forEach(function(r){
+          t+='<tr>'+r.map(function(c){return '<td>'+inlineMd(c)+'</td>';}).join('')+'</tr>';
+        });
+        t+='</tbody></table>';
+        out.push(t);
+      }
+      continue;
+    }
+
+    // list
+    if(/^-\s+/.test(line)){
+      flushPara();
+      var items=[];
+      while(i<lines.length&&/^-\s+/.test(lines[i])){
+        items.push(lines[i].replace(/^-\s+/,''));
+        i++;
+      }
+      out.push('<ul>'+items.map(function(it){return '<li>'+inlineMd(it)+'</li>';}).join('')+'</ul>');
+      continue;
+    }
+
+    // blank line
+    if(line.trim()===''){
+      flushPara();
+      i++;continue;
+    }
+
+    // paragraph text
+    para.push(line.trim());
+    i++;
+  }
+  flushPara();
+  return out.join('\n');
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────────────
+if(sessionStorage.getItem('direito_auth')==='1'){
+  document.getElementById('login-overlay').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  iniciarApp();
+}
+</script>
+</body>
+</html>

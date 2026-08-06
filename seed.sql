@@ -1,26 +1,12 @@
-# -*- coding: utf-8 -*-
-"""
-Carga inicial de tópicos, extraídos de "Direito Imobiliário — Fonte de Consulta"
-(resumo de Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática).
+-- Seed: 32 tópicos de Direito Imobiliário (Scavone Jr.)
+-- Gerado a partir de seed_data.py. Rodar uma única vez no SQL Editor do Supabase.
 
-Cada tópico tem duas versões do mesmo conteúdo:
-- explicacao_simples_md: linguagem do dia a dia, sem jargão jurídico
-- conteudo_md: texto técnico original, com base legal e jurisprudência, para fundamentação
-
-app.py importa TOPICOS e popula o banco automaticamente no primeiro boot
-(quando a tabela de tópicos estiver vazia).
-"""
-
-LIVRO_SCAVONE = "Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática"
-
-TOPICOS = [
-    {
-        "numero": "1",
-        "titulo": "Direitos Reais",
-        "livro": LIVRO_SCAVONE,
-        "tags": "direitos reais, propriedade, registro, numerus clausus",
-        "explicacao_simples_md": """\
-"Direito real" é o nome técnico para o tipo de direito que você tem **sobre uma coisa** (um imóvel, por exemplo) — e não sobre uma pessoa. A grande diferença na prática é:
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '1',
+  'Direitos Reais',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['direitos reais','propriedade','registro','numerus clausus']::text[],
+  '"Direito real" é o nome técnico para o tipo de direito que você tem **sobre uma coisa** (um imóvel, por exemplo) — e não sobre uma pessoa. A grande diferença na prática é:
 
 - Um **direito real** (como a propriedade) vale contra o mundo inteiro. Se alguém tentar tirar a coisa de você injustamente, você pode reavê-la de quem quer que esteja com ela.
 - Um **direito pessoal** (como um contrato comum) só vale entre você e a outra parte do contrato. Não obriga terceiros que nada têm a ver com o negócio.
@@ -29,10 +15,8 @@ Isso explica uma armadilha comum: um contrato de promessa de compra e venda **se
 
 A lei também limita quais direitos reais existem: só pode ser "direito real" o que estiver na lista da lei (propriedade, usufruto, hipoteca, laje, etc.). Ninguém pode simplesmente inventar um novo tipo de direito real por contrato.
 
-Outra ideia central: os "poderes" de um dono completo são usar a coisa, tirar proveito dela (aluguel, frutos), dispor dela (vender, doar) e retomá-la de quem a esteja segurando indevidamente. Quando alguém fica só com uma parte desses poderes (por exemplo, o usufrutuário, que pode usar e tirar proveito, mas não vender), nasce um "direito real sobre coisa alheia".
-""",
-        "conteudo_md": """\
-## 1.1 Conceito e classificação
+Outra ideia central: os "poderes" de um dono completo são usar a coisa, tirar proveito dela (aluguel, frutos), dispor dela (vender, doar) e retomá-la de quem a esteja segurando indevidamente. Quando alguém fica só com uma parte desses poderes (por exemplo, o usufrutuário, que pode usar e tirar proveito, mas não vender), nasce um "direito real sobre coisa alheia".',
+  '## 1.1 Conceito e classificação
 
 **Conceito:** Direito real (direito das coisas) é o conjunto de normas que regulam as relações jurídicas sobre bens corpóreos ou incorpóreos, suscetíveis de apropriação e dotados de conteúdo econômico relevante.
 
@@ -90,16 +74,15 @@ Conceito: Só a lei pode criar direitos reais; as partes não podem, por conven�
 
 Base legal: Art. 1.225, CC; art. 172, Lei 6.015/1973 (LRP) — o oficial só registra o que a lei permite.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "2",
-        "titulo": "Propriedade",
-        "livro": LIVRO_SCAVONE,
-        "tags": "propriedade, função social, usucapião, acessão, perda da propriedade",
-        "explicacao_simples_md": """\
-Ser "dono" de um imóvel, juridicamente, significa ter quatro poderes ao mesmo tempo: usar, tirar proveito (alugar, por exemplo), dispor (vender, doar) e retomar o bem de quem estiver com ele indevidamente. O Código Civil não define "propriedade" diretamente — ele define o proprietário como quem tem esses poderes.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '2',
+  'Propriedade',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['propriedade','função social','usucapião','acessão','perda da propriedade']::text[],
+  'Ser "dono" de um imóvel, juridicamente, significa ter quatro poderes ao mesmo tempo: usar, tirar proveito (alugar, por exemplo), dispor (vender, doar) e retomar o bem de quem estiver com ele indevidamente. O Código Civil não define "propriedade" diretamente — ele define o proprietário como quem tem esses poderes.
 
 Algumas características importantes da propriedade:
 
@@ -111,10 +94,8 @@ Como se adquire a propriedade de um imóvel? Os caminhos mais comuns são: regis
 
 Uma regra prática decisiva: **"quem não registra não é dono"**. A escritura, por si só, não transfere a propriedade — só o registro no cartório de imóveis faz isso. Enquanto não registrado, quem "vendeu" o imóvel continua sendo o dono perante a lei.
 
-Como se perde a propriedade? De forma voluntária (vender, doar, renunciar, abandonar) ou involuntária (o imóvel ser destruído, ou o Estado desapropriar).
-""",
-        "conteudo_md": """\
-## 2.1 Conceito
+Como se perde a propriedade? De forma voluntária (vender, doar, renunciar, abandonar) ou involuntária (o imóvel ser destruído, ou o Estado desapropriar).',
+  '## 2.1 Conceito
 
 **Conceito:** O CC não define propriedade, mas define o proprietário: aquele que tem a faculdade de usar, gozar e dispor da coisa, e o direito de reavê-la de quem injustamente a possua ou detenha.
 
@@ -226,23 +207,20 @@ Base legal: Art. 1.275, CC (rol exemplificativo).
 - Desapropriação — necessidade/utilidade pública, prévia e justa indenização em dinheiro (art. 5º, XXIV, CF; art. 1.228, § 3º, CC; Decreto-lei 3.365/1941).
 - Posse-trabalho — aquisição por número considerável de pessoas, posse de boa-fé por mais de 5 anos, extensa área, com função social cumprida; depende de indenização arbitrada judicialmente (art. 1.228, § 4º, CC).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "3",
-        "titulo": "Retificação do Registro Imobiliário",
-        "livro": LIVRO_SCAVONE,
-        "tags": "registro, retificação, cartório, matrícula",
-        "explicacao_simples_md": """\
-Às vezes a matrícula do imóvel no cartório está errada — a área é diferente da real, a descrição das divisas não bate, ou até o estado civil de alguém está desatualizado. "Retificar o registro" é o procedimento para **corrigir** esse tipo de erro, deixando o papel de acordo com a realidade.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '3',
+  'Retificação do Registro Imobiliário',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['registro','retificação','cartório','matrícula']::text[],
+  'Às vezes a matrícula do imóvel no cartório está errada — a área é diferente da real, a descrição das divisas não bate, ou até o estado civil de alguém está desatualizado. "Retificar o registro" é o procedimento para **corrigir** esse tipo de erro, deixando o papel de acordo com a realidade.
 
 Ponto essencial para não confundir: retificação **não serve para aumentar sua propriedade**. Se você quer legalizar uma área a mais do que realmente tem (por exemplo, "esticou" uma cerca), o caminho certo é usucapião, não retificação — os tribunais já negaram retificações que tentavam disfarçar um aumento de área muito grande (o STJ considerou abusivo um pedido de 34,80% a mais, quando o limite tolerado costuma ser de 20%).
 
-Na prática, a maioria das retificações hoje é feita **direto no cartório** (via extrajudicial), sem precisar de processo judicial — só vai para o juiz se alguém impugnar (contestar) de forma séria. Se o erro for simples (por exemplo, um dado que já estava certo na escritura mas foi digitado errado no registro), o próprio cartório corrige de ofício ou por simples pedido. Se envolver mudança de área/divisas, exige planta e memorial assinados por um profissional (engenheiro/agrimensor), e todos os vizinhos confrontantes precisam ser avisados — quem fica calado é considerado como tendo concordado.
-""",
-        "conteudo_md": """\
-## 3.1 Generalidades
+Na prática, a maioria das retificações hoje é feita **direto no cartório** (via extrajudicial), sem precisar de processo judicial — só vai para o juiz se alguém impugnar (contestar) de forma séria. Se o erro for simples (por exemplo, um dado que já estava certo na escritura mas foi digitado errado no registro), o próprio cartório corrige de ofício ou por simples pedido. Se envolver mudança de área/divisas, exige planta e memorial assinados por um profissional (engenheiro/agrimensor), e todos os vizinhos confrontantes precisam ser avisados — quem fica calado é considerado como tendo concordado.',
+  '## 3.1 Generalidades
 
 **Conceito:** Procedimento para corrigir o registro quando ele não corresponde à realidade fática do imóvel (área, divisas, descrição, dados pessoais das partes etc.). O sistema registral se baseia na presunção relativa de que o registro exprime a verdade.
 
@@ -343,16 +321,15 @@ Dispensável, em tese, a intimação quando o confinante é logradouro público,
 
 Se a Fazenda impugnar de forma fundamentada, a via administrativa é trancada e as partes vão às vias ordinárias — e, se a impugnante for a União, a competência passa a ser da Justiça Federal.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "4",
-        "titulo": "Ação de Suprimento de Outorga Conjugal",
-        "livro": LIVRO_SCAVONE,
-        "tags": "outorga conjugal, casamento, venda de imóvel, cônjuge",
-        "explicacao_simples_md": """\
-Se você é casado (fora do regime de separação total de bens) e quer vender ou dar em garantia um imóvel, a lei normalmente exige a assinatura do seu cônjuge — isso se chama **outorga conjugal** (ou uxória, se for a esposa). É uma proteção contra um dos dois vender o patrimônio da família sozinho, sem o outro saber ou concordar.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '4',
+  'Ação de Suprimento de Outorga Conjugal',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['outorga conjugal','casamento','venda de imóvel','cônjuge']::text[],
+  'Se você é casado (fora do regime de separação total de bens) e quer vender ou dar em garantia um imóvel, a lei normalmente exige a assinatura do seu cônjuge — isso se chama **outorga conjugal** (ou uxória, se for a esposa). É uma proteção contra um dos dois vender o patrimônio da família sozinho, sem o outro saber ou concordar.
 
 Se o cônjuge se recusa a assinar sem um bom motivo, ou está impossibilitado de fazê-lo (viajando, doente, em local desconhecido), a pessoa interessada pode pedir ao juiz para **suprir** essa autorização — ou seja, o juiz assina "no lugar" do cônjuge relutante.
 
@@ -362,10 +339,8 @@ O juiz vai analisar o motivo da recusa:
 
 Um detalhe importante em compromissos de compra e venda: os tribunais tendem a aceitar que a promessa vale entre as partes mesmo sem a outorga do cônjuge do vendedor — mas, nesse caso, o comprador não consegue forçar a transferência da propriedade (ação de adjudicação compulsória); só pode pedir de volta o dinheiro pago e indenização, e apenas contra o patrimônio pessoal de quem assinou, não contra o imóvel do casal.
 
-Se falta a outorga quando ela era necessária, o negócio pode ser anulado em até 2 anos contados do fim do casamento.
-""",
-        "conteudo_md": """\
-## 4.1 Regras gerais
+Se falta a outorga quando ela era necessária, o negócio pode ser anulado em até 2 anos contados do fim do casamento.',
+  '## 4.1 Regras gerais
 
 **Conceito:** Outorga uxória/marital (outorga conjugal) é a anuência do cônjuge, exigida para alienar ou gravar de ônus real bem imóvel. Quando o cônjuge se recusa sem motivo justo, ou está impossibilitado de manifestar-se, o outro pode pedir ao juiz que supra essa outorga.
 
@@ -425,16 +400,15 @@ Regra: Imóvel situado no Brasil segue a lei brasileira (*lex rei sitae*), ainda
 
 Base legal: Art. 8º, Decreto-lei 4.657/1942 (LINDB).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "5",
-        "titulo": "Ações Versando sobre Falsidade Documental",
-        "livro": LIVRO_SCAVONE,
-        "tags": "falsidade documental, escritura, perícia, prova",
-        "explicacao_simples_md": """\
-Se o registro de um imóvel se baseou num documento falso (uma escritura com assinatura forjada, por exemplo), esse registro pode ser anulado — mesmo que quem comprou depois estivesse de boa-fé e não soubesse de nada. Ou seja: um documento falso "contamina" tudo que veio depois dele.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '5',
+  'Ações Versando sobre Falsidade Documental',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['falsidade documental','escritura','perícia','prova']::text[],
+  'Se o registro de um imóvel se baseou num documento falso (uma escritura com assinatura forjada, por exemplo), esse registro pode ser anulado — mesmo que quem comprou depois estivesse de boa-fé e não soubesse de nada. Ou seja: um documento falso "contamina" tudo que veio depois dele.
 
 Existem dois tipos de falsidade:
 - **Falsidade material**: o documento em si foi adulterado fisicamente — uma assinatura forjada, uma palavra trocada, um valor rasurado. Prova-se com perícia técnica (grafotécnica, por exemplo).
@@ -442,10 +416,8 @@ Existem dois tipos de falsidade:
 
 Quem apresenta um documento em um processo e a outra parte diz que ele é falso, geralmente é quem apresentou o documento que precisa provar que ele é verdadeiro (a lei presume que documentos, principalmente os públicos, são autênticos até prova em contrário).
 
-Se você perceber a tempo, pode arguir a falsidade dentro do próprio processo em andamento. Mas, mesmo que perca esse prazo, isso não te impede de provar a falsidade depois, numa ação própria — só perde a chance de resolver aquilo especificamente dentro daquele processo mais rápido.
-""",
-        "conteudo_md": """\
-## 5.1 Conceito e relevância para o Direito Imobiliário
+Se você perceber a tempo, pode arguir a falsidade dentro do próprio processo em andamento. Mas, mesmo que perca esse prazo, isso não te impede de provar a falsidade depois, numa ação própria — só perde a chance de resolver aquilo especificamente dentro daquele processo mais rápido.',
+  '## 5.1 Conceito e relevância para o Direito Imobiliário
 
 **Conceito:** A falsidade documental pode inquinar o título e, por consequência, o registro. Como o registro tem presunção relativa (art. 1.247, CC), provada a falsidade do título que lhe deu origem, cabe anular o registro, independentemente da boa-fé do adquirente.
 
@@ -483,16 +455,15 @@ A fé pública do documento produzido por tabelião (art. 215, CC) é presunçã
 
 > ⚠ Ponto prático: deixar escoar o prazo do art. 430 sem arguir gera preclusão apenas da via incidental — nada impede alegar e provar a falsidade depois, em ação declaratória autônoma.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "6",
-        "titulo": "Ação Reivindicatória",
-        "livro": LIVRO_SCAVONE,
-        "tags": "reivindicatória, propriedade, posse, usucapião como defesa",
-        "explicacao_simples_md": """\
-A ação reivindicatória é a ação que o **dono** de um imóvel usa para reaver a coisa de quem está com ela sem direito. A diferença chave em relação a outras ações parecidas: aqui, quem está processando alega que é o **proprietário** — não basta provar que já teve posse antes.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '6',
+  'Ação Reivindicatória',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['reivindicatória','propriedade','posse','usucapião como defesa']::text[],
+  'A ação reivindicatória é a ação que o **dono** de um imóvel usa para reaver a coisa de quem está com ela sem direito. A diferença chave em relação a outras ações parecidas: aqui, quem está processando alega que é o **proprietário** — não basta provar que já teve posse antes.
 
 "Injustamente" (posse sem causa jurídica) é mais amplo do que parece: não é só quando alguém invadiu à força. Também é injusta a posse de quem comprou de um "vendedor" que, na verdade, usou uma procuração falsa, por exemplo.
 
@@ -500,10 +471,8 @@ Atenção a uma armadilha comum: se quem está no imóvel tem um motivo legítim
 
 Quem processa precisa provar duas coisas: que é o dono, e que a posse do réu é injusta. Se a compra do próprio autor também tiver algum defeito na cadeia (por exemplo, veio de uma venda por procuração falsa), é preciso provar toda a cadeia de proprietários anteriores até completar 15 anos — o mesmo prazo da usucapião.
 
-Uma defesa importante que o réu pode usar: alegar usucapião **mesmo sem nunca ter entrado com uma ação de usucapião formal**. Se ele já cumpriu os requisitos da usucapião (posse mansa e pacífica pelo tempo exigido), pode simplesmente alegar isso como defesa dentro do próprio processo movido contra ele.
-""",
-        "conteudo_md": """\
-## 6.1 Conceito e natureza jurídica
+Uma defesa importante que o réu pode usar: alegar usucapião **mesmo sem nunca ter entrado com uma ação de usucapião formal**. Se ele já cumpriu os requisitos da usucapião (posse mansa e pacífica pelo tempo exigido), pode simplesmente alegar isso como defesa dentro do próprio processo movido contra ele.',
+  '## 6.1 Conceito e natureza jurídica
 
 **Conceito:** Ação real pela qual o proprietário retoma a coisa do poder de quem injustamente a possua ou detenha (art. 1.228, CC). Fundamenta-se na propriedade (causa de pedir), não na posse.
 
@@ -546,16 +515,15 @@ Consequência prática: o usucapiente pode alegar usucapião como matéria de de
 - Réu sem título, só posse → só se defende provando mácula no título do autor (aquisição *a non domino* há menos de 15 anos).
 - Réu com título também registrado (comum em transcrições anteriores à Lei 6.015/1973) → prevalece o título mais antigo (*prior in tempore, potior in iure*); hipótese inviável em matrículas abertas já sob a Lei 6.015/1973.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "7",
-        "titulo": "Ação de Desapropriação",
-        "livro": LIVRO_SCAVONE,
-        "tags": "desapropriação, poder público, indenização, retrocessão",
-        "explicacao_simples_md": """\
-Desapropriação é quando o Poder Público (União, Estado ou Município) toma um imóvel particular para usar em algo de utilidade/necessidade pública (construir uma escola, uma via, etc.) ou por interesse social. A Constituição exige que, em troca, o dono receba uma indenização **prévia, justa e em dinheiro** — exceto no caso específico de terra rural improdutiva usada para reforma agrária, que pode ser paga com títulos da dívida pública.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '7',
+  'Ação de Desapropriação',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['desapropriação','poder público','indenização','retrocessão']::text[],
+  'Desapropriação é quando o Poder Público (União, Estado ou Município) toma um imóvel particular para usar em algo de utilidade/necessidade pública (construir uma escola, uma via, etc.) ou por interesse social. A Constituição exige que, em troca, o dono receba uma indenização **prévia, justa e em dinheiro** — exceto no caso específico de terra rural improdutiva usada para reforma agrária, que pode ser paga com títulos da dívida pública.
 
 O processo tem duas fases: primeiro sai um decreto declarando que aquele imóvel será desapropriado (fase declaratória); depois vem a ação judicial que fixa o valor da indenização e efetivamente transfere o imóvel (fase executória). Importante: na ação de desapropriação em si, não dá para discutir **se** era realmente necessário desapropriar — só se discute o valor da indenização ou vícios do processo. Se você quer discutir a necessidade em si, precisa de uma ação separada.
 
@@ -563,10 +531,8 @@ Existem prazos: o decreto de utilidade pública "vence" em 5 anos (pode ser reno
 
 Um ponto que interessa muito ao proprietário: se, depois de tomar o imóvel, o Poder Público **não dá o destino público que prometeu** (por exemplo, desapropriou para construir uma escola e depois vendeu o terreno para outra finalidade), o antigo dono pode ter direito de reaver o imóvel ou pelo menos preferência para comprá-lo de volta pelo preço atual — isso se chama **retrocessão**.
 
-Também existe a "desapropriação indireta": quando o Estado simplesmente ocupa o imóvel de fato, sem seguir o processo formal. Nesse caso, se a ocupação já está consumada, não dá mais para reaver o imóvel — só resta pedir indenização.
-""",
-        "conteudo_md": """\
-## 7.1 Fundamento e lei aplicável
+Também existe a "desapropriação indireta": quando o Estado simplesmente ocupa o imóvel de fato, sem seguir o processo formal. Nesse caso, se a ocupação já está consumada, não dá mais para reaver o imóvel — só resta pedir indenização.',
+  '## 7.1 Fundamento e lei aplicável
 
 **Conceito:** Meio especial e originário de perda/aquisição da propriedade pelo Poder Público, por necessidade ou utilidade pública, ou interesse social, mediante prévia e justa indenização em dinheiro.
 
@@ -657,26 +623,23 @@ A declaração de utilidade/necessidade/interesse social é sempre ato do Chefe 
 | Requisitos especiais | Preço ofertado; pedido de imissão prévia na posse (se houver); exemplar do decreto expropriatório; planta/descrição do imóvel com confrontações |
 | Se imissão prévia | Deve acompanhar a guia de depósito do valor ofertado |
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "8",
-        "titulo": "Regularização Fundiária Urbana (Reurb)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "reurb, regularização fundiária, legitimação de posse, lei 13.465/2017",
-        "explicacao_simples_md": """\
-A Reurb é o programa que serve para **legalizar** bairros/assentamentos informais (clandestinos, irregulares) já existentes há um bom tempo, dando um título de propriedade (ou pelo menos de posse) para quem mora ali. Diferente do parcelamento comum, a Reurb não depende de uma lei municipal específica para funcionar.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '8',
+  'Regularização Fundiária Urbana (Reurb)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['reurb','regularização fundiária','legitimação de posse','lei 13.465/2017']::text[],
+  'A Reurb é o programa que serve para **legalizar** bairros/assentamentos informais (clandestinos, irregulares) já existentes há um bom tempo, dando um título de propriedade (ou pelo menos de posse) para quem mora ali. Diferente do parcelamento comum, a Reurb não depende de uma lei municipal específica para funcionar.
 
 Existem dois tipos de título que ela pode emitir:
 
 - **Legitimação fundiária**: dá a propriedade diretamente, de forma originária (por ato do Poder Público). Só vale para assentamentos que já existiam até 22/12/2016 — depois dessa data, não se aplica mais.
 - **Legitimação de posse**: reconhece que a pessoa é possuidora (não ainda proprietária) — não tem limite de data. Esse título se transforma automaticamente em propriedade depois de 5 anos do registro, desde que a pessoa cumpra os requisitos de uma usucapião urbana comum. É um título "fraco" até essa conversão — pode ser cancelado se as condições deixarem de existir.
 
-Na prática, isso permite que moradores de áreas informais consolidadas consigam, com o tempo, uma matrícula própria no cartório — coisa que antes era muito difícil de conseguir.
-""",
-        "conteudo_md": """\
-## 8.1 Conceitos-chave
+Na prática, isso permite que moradores de áreas informais consolidadas consigam, com o tempo, uma matrícula própria no cartório — coisa que antes era muito difícil de conseguir.',
+  '## 8.1 Conceitos-chave
 
 - **Núcleo urbano** — assentamento humano com uso/características urbanas, unidades com área inferior à fração mínima de parcelamento, independentemente de o solo ser juridicamente rural (art. 11, I).
 - **Núcleo urbano informal** — clandestino, irregular, ou sem possibilidade de titulação dos ocupantes.
@@ -724,16 +687,15 @@ Vias e logradouros públicos identificados na CRF são incorporados automaticame
 
 A Reurb não impede automaticamente a regularização em área de manancial/preservação/conservação, mas exige atendimento aos arts. 64-65 do Código Florestal (estudos técnicos de compensação ambiental) e, em unidades de conservação, anuência do órgão gestor + comprovação de melhoria ambiental — na prática, de aplicação bem mais restrita.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "9",
-        "titulo": "Parcelamento do Solo Urbano",
-        "livro": LIVRO_SCAVONE,
-        "tags": "parcelamento, loteamento, desmembramento, lei 6.766/1979",
-        "explicacao_simples_md": """\
-"Parcelamento do solo urbano" é o nome genérico para dividir um terreno grande em pedaços menores para vender. Existem três formas, e a diferença entre elas importa bastante:
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '9',
+  'Parcelamento do Solo Urbano',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['parcelamento','loteamento','desmembramento','lei 6.766/1979']::text[],
+  '"Parcelamento do solo urbano" é o nome genérico para dividir um terreno grande em pedaços menores para vender. Existem três formas, e a diferença entre elas importa bastante:
 
 - **Loteamento**: divide uma área grande em lotes e, para isso, **abre ruas novas** (ou muda as existentes).
 - **Desmembramento**: divide uma área em lotes, mas **aproveita as ruas que já existem**, sem abrir nada novo.
@@ -743,10 +705,8 @@ Um "loteamento fechado" (com portaria, controle de acesso) segue basicamente as 
 
 Antes de registrar um loteamento, é preciso um monte de certidões negativas (de dívidas, ações, etc.) — e existe prazo de 180 dias após a aprovação do projeto para levar tudo a registro, senão o projeto "caduca" (perde a validade).
 
-Cuidado com "loteamentos clandestinos": vender lotes de um loteamento que não está registrado é proibido por lei — o contrato é nulo, mesmo que o comprador soubesse que era irregular, e ainda pode configurar crime.
-""",
-        "conteudo_md": """\
-## 9.1 Conceitos-base (Lei 6.766/1979)
+Cuidado com "loteamentos clandestinos": vender lotes de um loteamento que não está registrado é proibido por lei — o contrato é nulo, mesmo que o comprador soubesse que era irregular, e ainda pode configurar crime.',
+  '## 9.1 Conceitos-base (Lei 6.766/1979)
 
 **Gênero e espécies:** Parcelamento do solo urbano é gênero do qual são espécies: loteamento, desmembramento (ambos regidos pela Lei 6.766/1979) e desdobro (exclusivamente lei municipal).
 
@@ -797,25 +757,22 @@ Fórmulas fraudulentas comuns: venda de frações ideais "localizadas" sob capa 
 
 Consequência: crime dos arts. 50 e ss. da Lei 6.766/1979, além de impedir o loteador de fundamentar ação ou defesa sem os registros e contratos exigidos por lei (art. 46, Lei 6.766/1979; art. 23, DL 58/1937).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "10",
-        "titulo": "Incorporações Imobiliárias",
-        "livro": LIVRO_SCAVONE,
-        "tags": "incorporação, patrimônio de afetação, permuta, cláusulas abusivas",
-        "explicacao_simples_md": """\
-Incorporação imobiliária é o negócio pelo qual uma construtora/incorporadora vende apartamentos ou casas **antes ou durante** a construção, comprometendo-se a entregar prontos depois. É o modelo clássico de "comprar na planta".
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '10',
+  'Incorporações Imobiliárias',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['incorporação','patrimônio de afetação','permuta','cláusulas abusivas']::text[],
+  'Incorporação imobiliária é o negócio pelo qual uma construtora/incorporadora vende apartamentos ou casas **antes ou durante** a construção, comprometendo-se a entregar prontos depois. É o modelo clássico de "comprar na planta".
 
 Um mecanismo importante de proteção para quem compra é o **patrimônio de afetação**: o terreno e tudo relacionado àquela obra específica ficam "separados" do patrimônio geral da incorporadora. Isso significa que, se a incorporadora quebrar (falir), esse terreno e essa obra **não entram na massa falida** — ficam reservados para terminar a obra e entregar aos compradores. Se a obra parar por mais de 30 dias, os próprios compradores se reúnem em assembleia para decidir se continuam a obra ou vendem tudo em leilão.
 
 Outra estrutura comum é a **permuta**: o dono do terreno troca o terreno por apartamentos prontos no futuro (em vez de vender por dinheiro). Isso tem um risco real para o dono do terreno: se a incorporadora não cumprir o contrato, ele pode ser obrigado a indenizar os compradores das unidades pelo valor da construção, antes de conseguir retomar o terreno. Por isso, quem vai fazer uma permuta desse tipo deve negociar garantias fortes (fiança bancária, por exemplo).
 
-A lei também proíbe várias cláusulas abusivas comuns nesses contratos: aumentar o preço sozinho sem critério, multa acima de 2%, perder todo o dinheiro pago não importa o motivo, dar procuração ao vendedor para agir "no seu lugar", etc. E existe uma tolerância de 180 dias de atraso na entrega que, se estiver escrita no contrato, não gera multa — mas depois desses 180 dias, sim.
-""",
-        "conteudo_md": """\
-## 10.1 Conceito e modalidades de construção
+A lei também proíbe várias cláusulas abusivas comuns nesses contratos: aumentar o preço sozinho sem critério, multa acima de 2%, perder todo o dinheiro pago não importa o motivo, dar procuração ao vendedor para agir "no seu lugar", etc. E existe uma tolerância de 180 dias de atraso na entrega que, se estiver escrita no contrato, não gera multa — mas depois desses 180 dias, sim.',
+  '## 10.1 Conceito e modalidades de construção
 
 **Conceito:** Negócio jurídico pelo qual o incorporador se obriga a promover e realizar construção destinada à alienação de unidades autônomas, à vista ou a prazo (Lei 4.591/1964, arts. 28 e 29).
 
@@ -868,16 +825,15 @@ Quadro-resumo obrigatório (arts. 35-A, Lei 4.591/1964, e 26-A, Lei 6.766/1979):
 
 Prazo de tolerância para entrega: 180 dias corridos após a data contratual, se pactuado expressamente, não gera resolução nem penalidade ao incorporador (art. 43-A, Lei 4.591/1964) — mas o habite-se não basta; conta a data da efetiva entrega/posse (Súmula 160, TJSP).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "11",
-        "titulo": "Promessa de Compra e Venda",
-        "livro": LIVRO_SCAVONE,
-        "tags": "promessa de compra e venda, compromisso, adjudicação compulsória, mora",
-        "explicacao_simples_md": """\
-A promessa (ou compromisso) de compra e venda é aquele contrato "de passagem": você promete pagar, o vendedor promete passar a escritura depois que você terminar de pagar. Ela ainda **não transfere a propriedade** — mas, se for registrada no cartório, cria um direito real de aquisição, que vale contra terceiros.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '11',
+  'Promessa de Compra e Venda',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['promessa de compra e venda','compromisso','adjudicação compulsória','mora']::text[],
+  'A promessa (ou compromisso) de compra e venda é aquele contrato "de passagem": você promete pagar, o vendedor promete passar a escritura depois que você terminar de pagar. Ela ainda **não transfere a propriedade** — mas, se for registrada no cartório, cria um direito real de aquisição, que vale contra terceiros.
 
 Pontos práticos importantes:
 
@@ -887,10 +843,8 @@ Pontos práticos importantes:
 
 Sobre atraso no pagamento (mora) do comprador: a lei exige que o vendedor **notifique** o comprador antes de tentar rescindir o contrato — sem essa notificação, a rescisão é inválida. E o comprador tem um prazo para "se acertar" (purgar a mora) que varia conforme o tipo de imóvel: pode ser 15, 30 dias, ou depender de 3 parcelas em atraso, dependendo da situação.
 
-Mesmo que o contrato tenha uma cláusula dizendo que ele se rescinde automaticamente em caso de atraso, a jurisprudência majoritária ainda exige uma decisão judicial (ou hoje, em alguns casos, uma ata notarial) para que a rescisão realmente produza efeitos práticos, principalmente para acertar a devolução dos valores pagos.
-""",
-        "conteudo_md": """\
-## 11.1 Conceito e efeitos
+Mesmo que o contrato tenha uma cláusula dizendo que ele se rescinde automaticamente em caso de atraso, a jurisprudência majoritária ainda exige uma decisão judicial (ou hoje, em alguns casos, uma ata notarial) para que a rescisão realmente produza efeitos práticos, principalmente para acertar a devolução dos valores pagos.',
+  '## 11.1 Conceito e efeitos
 
 **Conceito:** Contrato preliminar pelo qual o promitente comprador se obriga a pagar o preço e o promitente vendedor, após recebê-lo, se compromete a outorgar a escritura definitiva. Não transfere a propriedade — apenas cria, se registrada, direito real de aquisição (CC, arts. 1.225, VII, 1.417 e 1.418; DL 58/1937).
 
@@ -948,26 +902,23 @@ Não exige prévio registro do contrato nem regularidade fiscal do promitente ve
 
 Direitos reais/ônus que não impeçam a disposição não obstam a adjudicação; indisponibilidade do imóvel impede o registro se não cancelada antes da decisão final do Oficial.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "12",
-        "titulo": "Corretagem Imobiliária — Corretor Não Inscrito no CRECI",
-        "livro": LIVRO_SCAVONE,
-        "tags": "corretagem, comissão, creci",
-        "explicacao_simples_md": """\
-Corretor de imóveis é uma profissão regulamentada — precisa estar inscrito no CRECI. Fazer corretagem sem esse registro é, tecnicamente, uma contravenção penal (uma infração mais leve que crime, mas ainda assim ilegal).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '12',
+  'Corretagem Imobiliária — Corretor Não Inscrito no CRECI',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['corretagem','comissão','creci']::text[],
+  'Corretor de imóveis é uma profissão regulamentada — precisa estar inscrito no CRECI. Fazer corretagem sem esse registro é, tecnicamente, uma contravenção penal (uma infração mais leve que crime, mas ainda assim ilegal).
 
 A dúvida prática é: se alguém intermediou a venda de um imóvel sem estar registrado no CRECI, ele tem direito de receber a comissão? Existem duas correntes:
 
 - Uma corrente diz que **não** — o contrato seria nulo porque o objeto (o próprio serviço) é ilícito.
 - A corrente **majoritária, inclusive no STJ**, diz que **sim** — a falta de registro é vista como uma "irregularidade administrativa", e negar a comissão a quem efetivamente prestou o serviço geraria enriquecimento sem causa de quem contratou e se beneficiou do trabalho.
 
-Na prática, isso significa que quem contratou um corretor não registrado normalmente não consegue simplesmente "não pagar" alegando a irregularidade — mas quem atua sem registro continua sujeito a responder por contravenção penal. É um risco a considerar antes de contratar (ou atuar como) corretor sem CRECI.
-""",
-        "conteudo_md": """\
-**Controvérsia:** A corretagem exercida por quem não é inscrito no CRECI (Lei 6.530/1978) configura, na esfera penal, exercício ilegal de profissão regulamentada (art. 47, Lei das Contravenções Penais). Na esfera cível, a jurisprudência é dividida quanto ao direito de receber a comissão.
+Na prática, isso significa que quem contratou um corretor não registrado normalmente não consegue simplesmente "não pagar" alegando a irregularidade — mas quem atua sem registro continua sujeito a responder por contravenção penal. É um risco a considerar antes de contratar (ou atuar como) corretor sem CRECI.',
+  '**Controvérsia:** A corretagem exercida por quem não é inscrito no CRECI (Lei 6.530/1978) configura, na esfera penal, exercício ilegal de profissão regulamentada (art. 47, Lei das Contravenções Penais). Na esfera cível, a jurisprudência é dividida quanto ao direito de receber a comissão.
 
 Corrente que NEGA o direito à comissão: o ato seria nulo por objeto ilícito (CC, art. 166, II) — contrato de prestação de serviços por quem comete, ao exercê-lo, infração penal.
 
@@ -975,25 +926,22 @@ Corrente MAJORITÁRIA (inclusive STJ): a ausência de inscrição no CRECI é "m
 
 > ⚠ Atenção prática: apesar de a jurisprudência cível tender a reconhecer a comissão, o exercício sem registro no CRECI permanece tipificado como contravenção penal — risco que deve ser considerado antes de se atuar ou contratar corretor não inscrito.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "13",
-        "titulo": "Ação de Imissão de Posse",
-        "livro": LIVRO_SCAVONE,
-        "tags": "imissão de posse, jus possidendi, arrematação",
-        "explicacao_simples_md": """\
-A ação de imissão de posse serve para quem **tem direito à posse de um imóvel, mas nunca chegou a exercê-la de fato**. É diferente da reintegração de posse (que é para quem já teve posse e perdeu por invasão) — aqui, o autor está pedindo posse pela **primeira vez**.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '13',
+  'Ação de Imissão de Posse',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['imissão de posse','jus possidendi','arrematação']::text[],
+  'A ação de imissão de posse serve para quem **tem direito à posse de um imóvel, mas nunca chegou a exercê-la de fato**. É diferente da reintegração de posse (que é para quem já teve posse e perdeu por invasão) — aqui, o autor está pedindo posse pela **primeira vez**.
 
 Exemplos comuns: um comprador que já pagou tudo mas o vendedor não entrega as chaves; um arrematante que comprou o imóvel num leilão e precisa tomar posse; um promitente comprador que tem o contrato, mesmo sem escritura, mas o vendedor não entrega o imóvel.
 
 Um detalhe técnico que muda a estratégia processual: se o direito do autor vem de um **direito real** (é dono, por exemplo), o cônjuge do réu também precisa ser incluído no processo, e o processo corre obrigatoriamente no local do imóvel. Se vem de um **direito pessoal** (um contrato de locação, por exemplo), essas regras não se aplicam.
 
-Também é possível pedir a posse de forma **antecipada** (uma liminar), antes mesmo do processo terminar, quando há provas fortes do direito — por exemplo, uma escritura com data de entrega e comprovante de que já pagou tudo.
-""",
-        "conteudo_md": """\
-## 13.1 Conceito e natureza (real ou pessoal)
+Também é possível pedir a posse de forma **antecipada** (uma liminar), antes mesmo do processo terminar, quando há provas fortes do direito — por exemplo, uma escritura com data de entrega e comprovante de que já pagou tudo.',
+  '## 13.1 Conceito e natureza (real ou pessoal)
 
 **Conceito:** Ação que visa obter a posse com fundamento no *jus possidendi* (direito à posse), quando o autor nunca exerceu a posse do bem — não se confunde com proteção possessória (que pressupõe posse anterior perdida por esbulho). Subsiste no direito vigente mesmo sem procedimento específico no CPC/2015.
 
@@ -1033,16 +981,15 @@ Súmula 5, TJSP: na imissão de posse de imóvel arrematado pelo credor hipotec�
 
 Compatível com os requisitos dos arts. 300/301 e 311 do CPC. Mesmo havendo título executivo (o que permitiria execução para entrega de coisa certa), a tutela antecipada de urgência é opção interessante do credor em razão da efetividade processual — sobretudo quando há prova inequívoca (escritura com data de entrega e comprovante de pagamento integral do preço).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "14",
-        "titulo": "Responsabilidade Civil na Construção Civil — Vícios e Defeitos",
-        "livro": LIVRO_SCAVONE,
-        "tags": "vícios de construção, cdc, prazo de garantia, art. 618",
-        "explicacao_simples_md": """\
-Quando um imóvel novo apresenta problemas, o tipo de problema muda completamente o prazo e o caminho jurídico para reclamar. Vale a pena separar três situações:
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '14',
+  'Responsabilidade Civil na Construção Civil — Vícios e Defeitos',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['vícios de construção','cdc','prazo de garantia','art. 618']::text[],
+  'Quando um imóvel novo apresenta problemas, o tipo de problema muda completamente o prazo e o caminho jurídico para reclamar. Vale a pena separar três situações:
 
 1. **Vício de acabamento** (uma porta que não fecha bem, um piso mal colocado): prazo curto, cerca de 1 ano da entrega para reclamar.
 2. **Problema de solidez/segurança** (rachadura estrutural, infiltração séria que compromete a habitabilidade): aqui a lei dá uma **garantia de 5 anos** contados da entrega — o vício só precisa aparecer dentro desses 5 anos, você não precisa necessariamente já ter processado dentro desse prazo. Depois de identificado o vício dentro da garantia, você ainda tem um prazo bem mais longo (o STJ decidiu que são 10 anos) para efetivamente pedir indenização.
@@ -1054,10 +1001,8 @@ Se você é consumidor comprando de uma incorporadora/construtora que atua com h
 
 Uma proteção importante: mesmo depois que a garantia contratual da construtora "acaba" (geralmente 5 anos), ela ainda pode ser responsabilizada durante toda a vida útil técnica esperada daquele componente da obra (uma norma técnica, a NBR 15.575, ajuda a definir esse prazo).
 
-O condomínio (representado pelo síndico) pode processar em nome de todos por danos materiais nas áreas comuns e até nas unidades — mas não pode pedir indenização por dano moral dos condôminos, porque isso é pessoal de cada um.
-""",
-        "conteudo_md": """\
-## 14.1 Incorporação, CDC e responsabilidade do construtor
+O condomínio (representado pelo síndico) pode processar em nome de todos por danos materiais nas áreas comuns e até nas unidades — mas não pode pedir indenização por dano moral dos condôminos, porque isso é pessoal de cada um.',
+  '## 14.1 Incorporação, CDC e responsabilidade do construtor
 
 **Incorporação:** Atividade de promover e realizar a construção de edificações para alienação total ou parcial de unidades autônomas (art. 28, parágrafo único, Lei 4.591/1964). O incorporador é fornecedor para efeitos do CDC (art. 3º) sempre que atuar com habitualidade — quem vende imóvel próprio sem habitualidade não é fornecedor; quem adquire para revenda ou para locação não é consumidor (não é destinatário final).
 
@@ -1109,16 +1054,15 @@ Agente financeiro (CEF/SFH): legitimidade passiva solidária apenas quando atuou
 
 Inversão do ônus da prova (CDC, art. 6º, VIII): possível diante de hipossuficiência técnica do consumidor; se o fornecedor não antecipar os honorários periciais quando lhe couber a prova, presumem-se verdadeiras as alegações do autor (STJ, REsp 2.097.352/SP).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "15",
-        "titulo": "Sistema Financeiro da Habitação (SFH)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "sfh, financiamento habitacional, contrato de gaveta, execução extrajudicial",
-        "explicacao_simples_md": """\
-O SFH é o sistema criado em 1964 para financiar moradias populares, usando dinheiro da poupança e do FGTS. Se o mutuário (quem financiou o imóvel) para de pagar, existe um procedimento de **execução extrajudicial** (fora do processo judicial comum) para o banco retomar a garantia — hoje regulado pelo Marco Legal das Garantias (2023), que substituiu o antigo Decreto-lei 70/1966. O STF já confirmou que esse tipo de execução extrajudicial é constitucional.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '15',
+  'Sistema Financeiro da Habitação (SFH)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['sfh','financiamento habitacional','contrato de gaveta','execução extrajudicial']::text[],
+  'O SFH é o sistema criado em 1964 para financiar moradias populares, usando dinheiro da poupança e do FGTS. Se o mutuário (quem financiou o imóvel) para de pagar, existe um procedimento de **execução extrajudicial** (fora do processo judicial comum) para o banco retomar a garantia — hoje regulado pelo Marco Legal das Garantias (2023), que substituiu o antigo Decreto-lei 70/1966. O STF já confirmou que esse tipo de execução extrajudicial é constitucional.
 
 Um tema bem prático é o "**contrato de gaveta**": quando alguém compra um imóvel financiado pelo SFH de outra pessoa (que ainda está pagando o financiamento) sem passar pelo banco, só combinando "por fora". Isso gera um problema: sem a concordância do banco, quem comprou "na gaveta" pode ter dificuldade de discutir o contrato de financiamento na Justiça.
 
@@ -1126,10 +1070,8 @@ A lei tratou diferente dependendo da data:
 - Contratos de gaveta feitos **até 25/10/1996**: foram "perdoados" por uma lei de 2000 — quem comprou assim pode discutir o contrato normalmente.
 - Contratos de gaveta feitos **depois de 25/10/1996**: precisam da concordância expressa do banco para que quem comprou tenha esse direito.
 
-De qualquer forma, mesmo sem a concordância do banco, a venda do imóvel em si continua valendo — só que o comprador fica sujeito às consequências perante o credor (a hipoteca "segue o imóvel").
-""",
-        "conteudo_md": """\
-## 15.1 Aspectos gerais e execução da garantia
+De qualquer forma, mesmo sem a concordância do banco, a venda do imóvel em si continua valendo — só que o comprador fica sujeito às consequências perante o credor (a hipoteca "segue o imóvel").',
+  '## 15.1 Aspectos gerais e execução da garantia
 
 **Conceito:** Criado pela Lei 4.380/1964 para estimular a construção de habitações de interesse social, financiado por Cadernetas de Poupança e FGTS. Antigo sistema de execução extrajudicial hipotecária do Decreto-lei 70/1966 foi revogado e substituído pela execução extrajudicial de garantia hipotecária do Marco Legal das Garantias (Lei 14.711/2023, art. 9º).
 
@@ -1147,16 +1089,15 @@ Cessões POSTERIORES a 25.10.1996: exigem anuência expressa da instituição fi
 
 A ausência de anuência não invalida a alienação do imóvel hipotecado (a hipoteca segue o bem — direito de sequela), apenas sujeita o adquirente às consequências legais perante o credor (CC, art. 303 — anuência tácita se o credor, notificado, não impugnar em 30 dias).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "16",
-        "titulo": "Alienação Fiduciária de Bem Imóvel (Lei 9.514/1997)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "alienação fiduciária, financiamento imobiliário, leilão, execução extrajudicial",
-        "explicacao_simples_md": """\
-A alienação fiduciária é hoje a garantia mais usada nos financiamentos de imóveis (é o que costuma acontecer quando você financia um imóvel num banco). Funciona assim: você (fiduciante) "transfere" a propriedade do imóvel para o banco (fiduciário) como garantia. Só que essa propriedade do banco é **resolúvel** — quando você termina de pagar, ela se desfaz automaticamente e o imóvel volta a ser seu.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '16',
+  'Alienação Fiduciária de Bem Imóvel (Lei 9.514/1997)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['alienação fiduciária','financiamento imobiliário','leilão','execução extrajudicial']::text[],
+  'A alienação fiduciária é hoje a garantia mais usada nos financiamentos de imóveis (é o que costuma acontecer quando você financia um imóvel num banco). Funciona assim: você (fiduciante) "transfere" a propriedade do imóvel para o banco (fiduciário) como garantia. Só que essa propriedade do banco é **resolúvel** — quando você termina de pagar, ela se desfaz automaticamente e o imóvel volta a ser seu.
 
 Diferença importante da hipoteca: na hipoteca, o banco tem um direito real sobre um imóvel que continua sendo **seu**. Na alienação fiduciária, a propriedade já é do banco (de forma temporária), o que torna a retomada em caso de inadimplência muito mais rápida — não precisa de processo judicial demorado, é tudo feito em cartório (execução extrajudicial).
 
@@ -1169,10 +1110,8 @@ Como funciona se você atrasar o pagamento:
 
 Você mantém o direito de "resgatar" o imóvel pagando tudo (dívida + despesas) até a data do 2º leilão — isso é diferente de simplesmente "atrasar menos".
 
-Um ponto importante: enquanto você não terminar de pagar, se você tiver uma outra dívida qualquer (não relacionada ao financiamento), quem cobrar essa outra dívida **não pode penhorar o imóvel em si** (porque ele ainda não é totalmente seu) — só pode penhorar os "direitos" que você tem sobre aquele contrato.
-""",
-        "conteudo_md": """\
-## 16.1 Conceito, partes e natureza jurídica
+Um ponto importante: enquanto você não terminar de pagar, se você tiver uma outra dívida qualquer (não relacionada ao financiamento), quem cobrar essa outra dívida **não pode penhorar o imóvel em si** (porque ele ainda não é totalmente seu) — só pode penhorar os "direitos" que você tem sobre aquele contrato.',
+  '## 16.1 Conceito, partes e natureza jurídica
 
 **Conceito:** Negócio pelo qual o fiduciante (devedor ou terceiro garantidor) transmite ao fiduciário (credor) a propriedade RESOLÚVEL do imóvel, em garantia. Pago o preço, resolve-se a propriedade do fiduciário e ela retorna ao fiduciante (Lei 9.514/1997, arts. 22, 25 e 33).
 
@@ -1254,23 +1193,20 @@ Tutela cautelar x tutela antecipada (CPC, art. 294 e ss.): a cautelar garante o 
 
 > ⚠ Depois de efetivada a reintegração de posse, a discussão sobre vícios do procedimento (que não a notificação) perde utilidade prática — daí a importância de buscar a tutela de urgência ANTES da consolidação/leilão, e não depois.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "17",
-        "titulo": "Negócio Jurídico — Boa-fé, Nulidade Absoluta e Simulação",
-        "livro": LIVRO_SCAVONE,
-        "tags": "boa-fé, nulidade, simulação, negócio jurídico",
-        "explicacao_simples_md": """\
-Boa-fé no direito tem dois sentidos diferentes: um é psicológico (você acredita sinceramente que está agindo certo — como em uma usucapião de boa-fé), o outro é um padrão de comportamento esperado (agir com lealdade, informar direito, cooperar com a outra parte do contrato). É esse segundo sentido que baliza como os contratos devem ser cumpridos.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '17',
+  'Negócio Jurídico — Boa-fé, Nulidade Absoluta e Simulação',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['boa-fé','nulidade','simulação','negócio jurídico']::text[],
+  'Boa-fé no direito tem dois sentidos diferentes: um é psicológico (você acredita sinceramente que está agindo certo — como em uma usucapião de boa-fé), o outro é um padrão de comportamento esperado (agir com lealdade, informar direito, cooperar com a outra parte do contrato). É esse segundo sentido que baliza como os contratos devem ser cumpridos.
 
 **Nulidade absoluta** é o grau mais grave de defeito num contrato: acontece, por exemplo, quando falta uma forma exigida por lei (uma venda de imóvel caro feita só "no papel", sem escritura pública quando ela era obrigatória). Um contrato nulo nunca "convalesce" — não tem prazo para ser reconhecido como nulo, e o juiz pode declarar isso de ofício, mesmo sem ninguém pedir.
 
-**Simulação** é quando as partes combinam entre si fingir um negócio diferente do que realmente está acontecendo, para enganar terceiros. Exemplo clássico: "vender" um imóvel de mentirinha para fugir de uma partilha de divórcio, ou fazer parecer que uma doação é onerosa para burlar a preferência de um herdeiro. A simulação é sempre nula — mas, se por trás dela existe um negócio verdadeiro e válido, esse negócio real pode ser mantido. Só um terceiro prejudicado (ou o Ministério Público) pode alegar a simulação — nunca as próprias partes que combinaram o esquema.
-""",
-        "conteudo_md": """\
-## 17.1 Boa-fé objetiva e subjetiva
+**Simulação** é quando as partes combinam entre si fingir um negócio diferente do que realmente está acontecendo, para enganar terceiros. Exemplo clássico: "vender" um imóvel de mentirinha para fugir de uma partilha de divórcio, ou fazer parecer que uma doação é onerosa para burlar a preferência de um herdeiro. A simulação é sempre nula — mas, se por trás dela existe um negócio verdadeiro e válido, esse negócio real pode ser mantido. Só um terceiro prejudicado (ou o Ministério Público) pode alegar a simulação — nunca as próprias partes que combinaram o esquema.',
+  '## 17.1 Boa-fé objetiva e subjetiva
 
 **Distinção:** Boa-fé subjetiva: estado psicológico de quem acredita não estar violando direito alheio (ex.: usucapião, casamento putativo). Boa-fé objetiva: padrão de conduta leal e proba exigido de todo contratante (CC, arts. 113 e 422; CDC, arts. 4º, III, e 51, IV) — dever de lealdade, informação e cooperação.
 
@@ -1300,16 +1236,15 @@ Legitimidade para arguir: terceiro prejudicado ou Ministério Público — NUNCA
 
 Terceiros de boa-fé (art. 167, § 2º): não são atingidos pela nulidade — se adquirirem de quem figurava como titular aparente sem ter como identificar a simulação, a aquisição é preservada.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "18",
-        "titulo": "Defeitos do Negócio Jurídico — Vícios do Consentimento",
-        "livro": LIVRO_SCAVONE,
-        "tags": "erro, dolo, coação, lesão, estado de perigo, anulabilidade",
-        "explicacao_simples_md": """\
-Diferente da nulidade absoluta (defeito gravíssimo, sem prazo para reclamar), a **anulabilidade** é um defeito "consertável": o negócio vale até alguém interessado pedir para anular, dentro de um prazo (em geral, 4 anos).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '18',
+  'Defeitos do Negócio Jurídico — Vícios do Consentimento',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['erro','dolo','coação','lesão','estado de perigo','anulabilidade']::text[],
+  'Diferente da nulidade absoluta (defeito gravíssimo, sem prazo para reclamar), a **anulabilidade** é um defeito "consertável": o negócio vale até alguém interessado pedir para anular, dentro de um prazo (em geral, 4 anos).
 
 Os principais vícios que podem levar à anulação de um negócio:
 
@@ -1319,10 +1254,8 @@ Os principais vícios que podem levar à anulação de um negócio:
 - **Estado de perigo**: você aceitou uma obrigação bem pesada porque estava numa necessidade grave (por exemplo, precisava urgentemente de dinheiro para uma cirurgia) e a outra parte sabia disso e se aproveitou.
 - **Lesão**: você assumiu uma obrigação claramente desproporcional (por necessidade ou inexperiência) — aqui, diferente do estado de perigo, o que importa é a desproporção real entre o que você deu e o que recebeu (usa-se como referência prática algo em torno de 20% de desproporção).
 
-Alguns casos têm prazo específico e mais curto: vender de um pai para um filho sem a concordância dos outros filhos, por exemplo, pode ser anulado em até 2 anos; anular uma partilha de herança, só 1 ano.
-""",
-        "conteudo_md": """\
-## 18.1 Regime geral e prazos decadenciais
+Alguns casos têm prazo específico e mais curto: vender de um pai para um filho sem a concordância dos outros filhos, por exemplo, pode ser anulado em até 2 anos; anular uma partilha de herança, só 1 ano.',
+  '## 18.1 Regime geral e prazos decadenciais
 
 **Distinção nulidade x anulabilidade:** Nulidade absoluta: imprescritível, efeitos *ex tunc*, reconhecível de ofício. Anulabilidade (defeitos do negócio): prazo decadencial, efeitos *ex nunc*, depende de alegação da parte interessada — sentença desconstitutiva.
 
@@ -1350,26 +1283,23 @@ Lesão (CC, art. 157): assunção de prestação manifestamente desproporcional 
 
 Diferença prática: no estado de perigo, a obrigação pode ser corrente no mercado (mas excessivamente onerosa dada a urgência); na lesão, exige-se desproporção efetiva entre as prestações contratadas.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "19",
-        "titulo": "Interpretação e Revisão dos Contratos Imobiliários",
-        "livro": LIVRO_SCAVONE,
-        "tags": "interpretação contratual, revisão contratual, onerosidade excessiva",
-        "explicacao_simples_md": """\
-Quando surge dúvida sobre o que um contrato realmente quer dizer, a regra geral é: **importa mais a intenção real das partes do que a literalidade das palavras**. Em contratos de adesão (aqueles que você só assina, sem poder negociar cláusula por cláusula — comuns em compra de imóvel na planta), a interpretação em caso de dúvida favorece quem aderiu (o comprador).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '19',
+  'Interpretação e Revisão dos Contratos Imobiliários',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['interpretação contratual','revisão contratual','onerosidade excessiva']::text[],
+  'Quando surge dúvida sobre o que um contrato realmente quer dizer, a regra geral é: **importa mais a intenção real das partes do que a literalidade das palavras**. Em contratos de adesão (aqueles que você só assina, sem poder negociar cláusula por cláusula — comuns em compra de imóvel na planta), a interpretação em caso de dúvida favorece quem aderiu (o comprador).
 
 E se o contrato ficou "injusto" com o tempo — por exemplo, uma mudança econômica muito grande tornou as parcelas impagáveis? Aqui a regra muda bastante dependendo se você é consumidor ou não:
 
 - Se for uma **relação de consumo** (CDC): basta provar que ficou excessivamente oneroso/desproporcional — não precisa provar que o evento era imprevisível.
 - Fora de relação de consumo (Código Civil): é preciso provar um evento superveniente **e imprevisível**. Aí você pode pedir a resolução do contrato (com efeito retroativo até a data em que entrou com a ação), ou, se a obrigação for só de um lado, pedir a redução/modificação. A outra parte, inclusive, pode "escapar" da resolução se oferecer uma revisão equilibrada por conta própria.
 
-Se você vai entrar com uma ação para revisar um contrato de financiamento imobiliário, a lei exige que você seja bem específico: precisa dizer exatamente quais cláusulas está contestando e quanto acha que é o valor "correto" (incontroverso) — e continuar pagando esse valor incontroverso normalmente. Não dá para simplesmente parar de pagar tudo alegando que vai discutir na Justiça.
-""",
-        "conteudo_md": """\
-## 19.1 Regras de interpretação
+Se você vai entrar com uma ação para revisar um contrato de financiamento imobiliário, a lei exige que você seja bem específico: precisa dizer exatamente quais cláusulas está contestando e quanto acha que é o valor "correto" (incontroverso) — e continuar pagando esse valor incontroverso normalmente. Não dá para simplesmente parar de pagar tudo alegando que vai discutir na Justiça.',
+  '## 19.1 Regras de interpretação
 
 Prevalência da intenção das partes sobre o sentido literal (CC, art. 112).
 
@@ -1397,25 +1327,22 @@ Art. 49: inadimplência do autor quanto a tributos, taxas condominiais e parcela
 
 > ⚠ Recomendação prática: antes de ajuizar ação revisional, obter parecer técnico/contábil quantificando o valor incontroverso e as ilegalidades apontadas (Tabela Price, capitalização, índices) — essencial para preencher o requisito do art. 50.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "20",
-        "titulo": "Juros nos Contratos Imobiliários",
-        "livro": LIVRO_SCAVONE,
-        "tags": "juros, lei de usura, capitalização, tabela price, sac",
-        "explicacao_simples_md": """\
-Juros são o "aluguel do dinheiro" — o que se paga a mais por ter recebido um valor emprestado/financiado. Existe uma lei antiga (de 1933, a "Lei de Usura") que limita juros a 1% ao mês em contratos comuns entre pessoas físicas. Mas essa lei **não vale** para bancos, financeiras e negócios entre empresas — nesses casos, não há um teto fixo, só se pode discutir se a taxa está muito fora da média do mercado.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '20',
+  'Juros nos Contratos Imobiliários',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['juros','lei de usura','capitalização','tabela price','sac']::text[],
+  'Juros são o "aluguel do dinheiro" — o que se paga a mais por ter recebido um valor emprestado/financiado. Existe uma lei antiga (de 1933, a "Lei de Usura") que limita juros a 1% ao mês em contratos comuns entre pessoas físicas. Mas essa lei **não vale** para bancos, financeiras e negócios entre empresas — nesses casos, não há um teto fixo, só se pode discutir se a taxa está muito fora da média do mercado.
 
 **Capitalização de juros** (também chamada de "juros sobre juros", ou anatocismo) é, em regra, proibida com frequência menor que 1 ano — mas há exceções importantes: bancos (desde 2000, se estiver expressamente no contrato), financiamentos do SFH (desde 2009), e algumas outras hipóteses recentes. Fora dessas exceções — por exemplo, um financiamento direto feito por uma construtora para uma pessoa física, sem banco no meio — a capitalização continua proibida, **mesmo se estiver escrita no contrato**.
 
 Sobre a famosa discussão "Tabela Price x SAC": a Tabela Price é o sistema mais comum de financiamento, com parcelas fixas. Muita gente questiona na Justiça se ela embute capitalização de juros disfarçada — mas o STJ decidiu que isso é uma questão que depende de perícia técnica em cada caso concreto, não uma tese jurídica geral que se aplica de cara. Já o SAC (parcelas decrescentes, amortização constante) não tem essa controvérsia — a jurisprudência entende que ele não configura capitalização.
 
-Uma prática específica de compra na planta: cobrar "juros no pé" (juros sobre o saldo antes da entrega das chaves) é considerada legal, desde que esteja expressamente no contrato — mas é proibido cobrar tudo isso de uma vez só, escondido, na hora da entrega das chaves.
-""",
-        "conteudo_md": """\
-## 20.1 Lei de Usura (Decreto 22.626/1933) e exceções da Lei 14.905/2024
+Uma prática específica de compra na planta: cobrar "juros no pé" (juros sobre o saldo antes da entrega das chaves) é considerada legal, desde que esteja expressamente no contrato — mas é proibido cobrar tudo isso de uma vez só, escondido, na hora da entrega das chaves.',
+  '## 20.1 Lei de Usura (Decreto 22.626/1933) e exceções da Lei 14.905/2024
 
 Vigência: O Decreto 22.626/1933 (Lei de Usura) continua em vigor, mas a Lei 14.905/2024 (art. 3º) afastou sua aplicação a diversas obrigações — invertendo, na prática, a regra geral para grande parte dos contratos financeiros.
 
@@ -1463,25 +1390,22 @@ STJ (EREsp 670.117/PB, Segunda Seção): é LEGAL a cobrança de juros compensat
 
 > ⚠ Vedada, contudo, a cobrança RETROATIVA de juros acumulados desde a assinatura do contrato apenas na data da entrega das chaves — prática que mascara o real preço do imóvel e viola a transparência exigida pelos arts. 46 e 52 do CDC.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "21",
-        "titulo": "Correção Monetária nos Contratos Imobiliários",
-        "livro": LIVRO_SCAVONE,
-        "tags": "correção monetária, inflação, incc, mora",
-        "explicacao_simples_md": """\
-Correção monetária **não é lucro** — é só atualizar o valor para compensar a inflação, mantendo o poder de compra. É diferente de juros, que é o "ganho" de quem emprestou o dinheiro.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '21',
+  'Correção Monetária nos Contratos Imobiliários',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['correção monetária','inflação','incc','mora']::text[],
+  'Correção monetária **não é lucro** — é só atualizar o valor para compensar a inflação, mantendo o poder de compra. É diferente de juros, que é o "ganho" de quem emprestou o dinheiro.
 
 Regra geral: não se pode reajustar (corrigir) um contrato com frequência menor que 1 ano. Mas há uma exceção específica para imóveis: contratos de compra/financiamento com prazo de **36 meses ou mais** podem ter correção mensal. Cuidado com uma armadilha: incluir uma "parcelinha" residual simbólica só para forçar o contrato a parecer que tem mais de 3 anos é considerado fraude, e a Justiça já mandou devolver em dobro o que foi cobrado a mais nesses casos.
 
 Um índice bastante usado durante a construção é o INCC (índice de custo da construção). Mas atenção: depois que o prazo de entrega (incluindo a tolerância, normalmente 180 dias) já passou por atraso da construtora, o INCC não deveria mais ser usado para corrigir o saldo devedor — a jurisprudência entende que, nesse período de atraso, deve ser usado um índice de preços mais geral (como IGP-M ou INPC).
 
-Se você atrasar um pagamento (ficar em mora), a correção passa a correr desde o vencimento (se a data já estava definida no contrato) — sem precisar de aviso prévio do credor. O índice que continua valendo, durante todo o atraso, é o mesmo que já estava pactuado no contrato.
-""",
-        "conteudo_md": """\
-## 21.1 Conceito e periodicidade
+Se você atrasar um pagamento (ficar em mora), a correção passa a correr desde o vencimento (se a data já estava definida no contrato) — sem precisar de aviso prévio do credor. O índice que continua valendo, durante todo o atraso, é o mesmo que já estava pactuado no contrato.',
+  '## 21.1 Conceito e periodicidade
 
 **Distinção de juros:** Correção monetária não é acréscimo/lucro — é mera recomposição do poder de compra da moeda corroído pela inflação; juros remuneram o capital (ganho real).
 
@@ -1509,16 +1433,15 @@ Na ausência de índice pactuado: aplica-se o IPCA (IBGE), por força do art. 38
 
 Índices negativos (deflação): aplicam-se, mas preservado o valor nominal do débito no período (STJ, Tema 678, REsp 1.361.191) — entendimento aplicável por analogia à correção contratual.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "22",
-        "titulo": "Perdas e Danos, Cláusula Penal e Arras (Sinal)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "perdas e danos, cláusula penal, arras, sinal",
-        "explicacao_simples_md": """\
-Quando alguém descumpre um contrato, existem algumas formas diferentes de "acertar as contas":
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '22',
+  'Perdas e Danos, Cláusula Penal e Arras (Sinal)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['perdas e danos','cláusula penal','arras','sinal']::text[],
+  'Quando alguém descumpre um contrato, existem algumas formas diferentes de "acertar as contas":
 
 **Perdas e danos**: cobre tanto o que você efetivamente perdeu (dano emergente) quanto o que deixou de ganhar (lucros cessantes). Se a obrigação era só pagar dinheiro, presume-se que os juros de mora já cobrem isso — só se pede algo a mais se provar prejuízo maior.
 
@@ -1528,10 +1451,8 @@ Quando alguém descumpre um contrato, existem algumas formas diferentes de "acer
 - Se você deu o sinal e desistiu, perde o valor.
 - Se você recebeu o sinal e desistiu, tem que devolver em dobro.
 
-Isso só vale para desistência total do negócio (inadimplemento absoluto), nunca para um simples atraso. E atenção: arras e multa contratual não se somam — é uma coisa ou outra, nunca as duas ao mesmo tempo (senão vira punição em dobro pelo mesmo problema).
-""",
-        "conteudo_md": """\
-## 22.1 Perdas e danos e honorários advocatícios contratuais
+Isso só vale para desistência total do negócio (inadimplemento absoluto), nunca para um simples atraso. E atenção: arras e multa contratual não se somam — é uma coisa ou outra, nunca as duas ao mesmo tempo (senão vira punição em dobro pelo mesmo problema).',
+  '## 22.1 Perdas e danos e honorários advocatícios contratuais
 
 **Composição:** Perdas e danos = dano emergente (o que o credor efetivamente perdeu) + lucros cessantes (o que razoavelmente deixou de lucrar) — CC, art. 402. Nas obrigações de pagamento em dinheiro, presumem-se cobertas pelos juros de mora, salvo indenização suplementar se provado prejuízo maior e não houver cláusula penal (CC, art. 404, parágrafo único).
 
@@ -1568,16 +1489,15 @@ Se o valor do sinal for compensado como PRINCÍPIO DE PAGAMENTO (ex.: abatido do
 
 Arras só produzem efeito no INADIMPLEMENTO ABSOLUTO — jamais na simples mora.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "23",
-        "titulo": "Cuidados na Aquisição de Imóveis — Due Diligence do Imóvel",
-        "livro": LIVRO_SCAVONE,
-        "tags": "due diligence, matrícula, certidões, checklist do imóvel",
-        "explicacao_simples_md": """\
-Antes de comprar um imóvel, o documento mais importante a analisar é a **matrícula** — a "ficha de identidade" do imóvel no cartório, que mostra o histórico completo: quem já foi dono, se há dívidas registradas, hipotecas, penhoras, usufruto, etc. É recomendável pedir uma matrícula bem recente (o mais próximo possível da data da compra), porque uma certidão antiga não garante que nada mudou desde então.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '23',
+  'Cuidados na Aquisição de Imóveis — Due Diligence do Imóvel',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['due diligence','matrícula','certidões','checklist do imóvel']::text[],
+  'Antes de comprar um imóvel, o documento mais importante a analisar é a **matrícula** — a "ficha de identidade" do imóvel no cartório, que mostra o histórico completo: quem já foi dono, se há dívidas registradas, hipotecas, penhoras, usufruto, etc. É recomendável pedir uma matrícula bem recente (o mais próximo possível da data da compra), porque uma certidão antiga não garante que nada mudou desde então.
 
 O que prestar atenção na matrícula:
 - **Estado civil do vendedor** — se casado (fora da separação total de bens), precisa da assinatura do cônjuge.
@@ -1587,10 +1507,8 @@ O que prestar atenção na matrícula:
 
 Sobre dívidas ligadas ao imóvel: IPTU e taxas de condomínio **"seguem o imóvel"** (são chamadas de "propter rem") — mesmo que você não tenha gerado a dívida, ela pode recair sobre você depois de comprar. Já contas de água e luz **não seguem o imóvel** — são de responsabilidade pessoal de quem consumiu.
 
-Também vale conferir se o imóvel não está na mira de uma desapropriação futura, consultando a prefeitura.
-""",
-        "conteudo_md": """\
-## 23.1 Certidão de propriedade (matrícula)
+Também vale conferir se o imóvel não está na mira de uma desapropriação futura, consultando a prefeitura.',
+  '## 23.1 Certidão de propriedade (matrícula)
 
 **Matrícula:** Ficha única do Registro de Imóveis contendo dados do imóvel, proprietário e todas as alterações registrais (Lei 6.015/1973, art. 167). A Lei 6.015/1973 extinguiu o antigo regime de transcrições (Lei 4.827/1924), mas ainda subsistem imóveis apenas transcritos.
 
@@ -1625,16 +1543,15 @@ O Código Civil extinguiu a enfiteuse particular (subsistem as existentes sob o 
 
 Antes de contratar ou entregar sinal, verificar junto ao órgão público municipal (e demais entes/concessionárias, conforme o caso) se o imóvel não foi declarado de utilidade pública. A indenização, ainda que prévia e justa (CF, art. 182, § 3º), frustra o interesse do comprador na propriedade do bem.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "24",
-        "titulo": "Idoneidade do Vendedor — Fraude Contra Credores e Fraude à Execução",
-        "livro": LIVRO_SCAVONE,
-        "tags": "fraude contra credores, fraude à execução, boa-fé, desconsideração da personalidade jurídica",
-        "explicacao_simples_md": """\
-Antes de comprar de alguém, vale a pena checar se essa pessoa (o vendedor) não está endividada a ponto de a venda poder ser anulada depois por fraude. Existem dois cenários parecidos, mas com efeitos diferentes:
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '24',
+  'Idoneidade do Vendedor — Fraude Contra Credores e Fraude à Execução',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['fraude contra credores','fraude à execução','boa-fé','desconsideração da personalidade jurídica']::text[],
+  'Antes de comprar de alguém, vale a pena checar se essa pessoa (o vendedor) não está endividada a ponto de a venda poder ser anulada depois por fraude. Existem dois cenários parecidos, mas com efeitos diferentes:
 
 - **Fraude à execução**: já existia um processo/execução em andamento contra o vendedor quando ele vendeu o imóvel. Nesse caso, a venda simplesmente não vale contra aquele credor — o imóvel pode ser penhorado de qualquer forma, esteja com quem estiver.
 - **Fraude contra credores**: não havia processo ainda, mas o vendedor já estava (ou ficou) insolvente com a venda. Aqui, é preciso entrar com uma ação específica (ação pauliana) para anular o negócio, provando que o comprador sabia (ou deveria saber) da situação.
@@ -1643,10 +1560,8 @@ Uma lei de 2015 (Lei 13.097/2015) simplificou bastante a vida de quem compra de 
 
 Uma regra prática importante (Súmula 375 do STJ): se não havia nenhuma penhora **registrada** na matrícula na hora da compra, presume-se que o comprador estava de boa-fé — quem quer provar o contrário (que o comprador sabia da fraude) é quem tem o ônus de provar isso.
 
-Vale conferir também: certidões pessoais do vendedor (RG, CPF, certidões negativas de diversos tipos), se ele é sócio de empresa devedora (o que pode gerar responsabilização pessoal dele em certos casos), e se ele não está prestes a falir (nesse caso, vendas feitas nos 90 dias antes do pedido de falência podem ser questionadas).
-""",
-        "conteudo_md": """\
-## 24.1 Documentos pessoais a exigir do vendedor
+Vale conferir também: certidões pessoais do vendedor (RG, CPF, certidões negativas de diversos tipos), se ele é sócio de empresa devedora (o que pode gerar responsabilização pessoal dele em certos casos), e se ele não está prestes a falir (nesse caso, vendas feitas nos 90 dias antes do pedido de falência podem ser questionadas).',
+  '## 24.1 Documentos pessoais a exigir do vendedor
 
 CPF/CNPJ, RG, certidão de nascimento atualizada (estado civil, capacidade), certidões negativas federal/estadual/municipal, INSS, FGTS (PJ), certidões cíveis, executivos fiscais, criminais, trabalhistas, Justiça Federal e tabeliães de protesto — pessoa física, sócios e pessoa jurídica, conforme o caso.
 
@@ -1715,16 +1630,15 @@ Ação pauliana (anulação por fraude contra credores): decai em 4 anos contado
 
 Falência do vendedor empresário: período suspeito de 90 dias (retroativo ao 1º protesto, pedido de falência/RJ) para atos onerosos em geral (Lei 11.101/2005, art. 99, II); 2 anos para doações — risco que subsiste mesmo com certidões limpas na data da aquisição.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "25",
-        "titulo": "Aquisição de Imóveis em Construção (Incorporadoras) e Venda por Procuração",
-        "livro": LIVRO_SCAVONE,
-        "tags": "compra na planta, procuração, incorporadora, checklist",
-        "explicacao_simples_md": """\
-Um checklist prático para quem vai comprar um imóvel na planta ou em construção:
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '25',
+  'Aquisição de Imóveis em Construção (Incorporadoras) e Venda por Procuração',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['compra na planta','procuração','incorporadora','checklist']::text[],
+  'Um checklist prático para quem vai comprar um imóvel na planta ou em construção:
 
 - Pesquise o histórico da incorporadora (obras já entregues, ações judiciais, reclamações em órgãos de defesa do consumidor).
 - Nunca assine contrato no próprio estande de vendas sem um advogado revisar antes.
@@ -1736,10 +1650,8 @@ Um checklist prático para quem vai comprar um imóvel na planta ou em construç
 
 Se você está comprando através de alguém que representa o vendedor por **procuração**, alguns cuidados extras:
 - A procuração precisa ter a mesma "força" exigida para o próprio negócio — para imóveis de valor mais alto (acima de 30 salários mínimos), a procuração precisa ser feita por escritura pública.
-- Verifique se a procuração ainda está válida (não foi revogada, e o outorgante não morreu ou ficou incapaz nesse meio tempo) — a única exceção é a "procuração em causa própria", que não se desfaz nem com a morte de quem outorgou.
-""",
-        "conteudo_md": """\
-## 25.1 Checklist prático — compra na planta/em construção
+- Verifique se a procuração ainda está válida (não foi revogada, e o outorgante não morreu ou ficou incapaz nesse meio tempo) — a única exceção é a "procuração em causa própria", que não se desfaz nem com a morte de quem outorgou.',
+  '## 25.1 Checklist prático — compra na planta/em construção
 
 - Verificar histórico e idoneidade da incorporadora (obras já entregues, ações judiciais, órgãos de proteção ao consumidor).
 - Nunca assinar contrato no *stand* de vendas sem revisão prévia por advogado.
@@ -1761,16 +1673,15 @@ Verificar se a procuração não foi extinta (revogação, renúncia, morte/inte
 
 Conflito de interesses: se o adquirente sabia que o mandante não desejava o negócio nos termos entabulados, o ato é ANULÁVEL no prazo decadencial de 180 dias contados do registro da escritura (CC, art. 119).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "26",
-        "titulo": "Registro da Aquisição — Princípios Registrais",
-        "livro": LIVRO_SCAVONE,
-        "tags": "registro, princípios registrais, presunção relativa",
-        "explicacao_simples_md": """\
-Já vimos em outros tópicos a regra de ouro: "quem não registra não é dono". Este tópico complementa com o outro lado da moeda: "**quem registra pode não ser** [o verdadeiro dono]" — porque a presunção de propriedade gerada pelo registro no Brasil é **relativa**, não absoluta.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '26',
+  'Registro da Aquisição — Princípios Registrais',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['registro','princípios registrais','presunção relativa']::text[],
+  'Já vimos em outros tópicos a regra de ouro: "quem não registra não é dono". Este tópico complementa com o outro lado da moeda: "**quem registra pode não ser** [o verdadeiro dono]" — porque a presunção de propriedade gerada pelo registro no Brasil é **relativa**, não absoluta.
 
 Isso é diferente de outros países: na Alemanha, o registro tem presunção absoluta (praticamente impossível de derrubar); na França, a propriedade passa com o simples contrato. No Brasil, mesmo depois de registrado, se ficar provado que o título que originou o registro era falso ou nulo, o registro pode ser cancelado — e o antigo dono pode retomar o imóvel, **mesmo que quem comprou por último estivesse de boa-fé**.
 
@@ -1778,10 +1689,8 @@ Uma consequência prática: uma escritura que diz "o preço já foi pago" (quita
 
 Duas situações especiais envolvendo menores de idade:
 - Para **vender** um imóvel em nome de um menor, é sempre necessária autorização judicial (alvará), mesmo que os pais representem/assistam a criança/adolescente.
-- Para **comprar** um imóvel em nome de um menor, não precisa de autorização judicial — basta que os pais representem (se menor de 16) ou assistam (de 16 a 18 anos) no ato.
-""",
-        "conteudo_md": """\
-## 26.1 "Quem não registra não é dono e quem registra pode não o ser"
+- Para **comprar** um imóvel em nome de um menor, não precisa de autorização judicial — basta que os pais representem (se menor de 16) ou assistam (de 16 a 18 anos) no ato.',
+  '## 26.1 "Quem não registra não é dono e quem registra pode não o ser"
 
 **Princípio da tradição solene:** No Brasil, a propriedade imóvel só se transfere pelo REGISTRO do título translativo (CC, art. 1.245) — antes disso, o adquirente tem mero direito pessoal (CC, art. 1.267), inoponível a terceiros.
 
@@ -1799,26 +1708,23 @@ VENDA de imóvel de menor: exige autorização judicial (alvará), mesmo com rep
 
 AQUISIÇÃO de imóvel em nome de menor: não exige autorização judicial — basta representação (menores de 16) ou assistência (16 a 18 anos).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "27",
-        "titulo": "Arrematação em Hasta Pública",
-        "livro": LIVRO_SCAVONE,
-        "tags": "arrematação, leilão judicial, hasta pública, débitos propter rem",
-        "explicacao_simples_md": """\
-Arrematar um imóvel é comprá-lo num leilão judicial (praça). A grande vantagem de comprar dessa forma é que se trata de uma "**aquisição originária**": o comprador recebe o imóvel **livre de ônus anteriores** (dívidas antigas do antigo dono não "grudam" no imóvel para o novo comprador da mesma forma) — os créditos antigos passam a ser cobrados do dinheiro pago no leilão, não mais do imóvel em si.
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '27',
+  'Arrematação em Hasta Pública',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['arrematação','leilão judicial','hasta pública','débitos propter rem']::text[],
+  'Arrematar um imóvel é comprá-lo num leilão judicial (praça). A grande vantagem de comprar dessa forma é que se trata de uma "**aquisição originária**": o comprador recebe o imóvel **livre de ônus anteriores** (dívidas antigas do antigo dono não "grudam" no imóvel para o novo comprador da mesma forma) — os créditos antigos passam a ser cobrados do dinheiro pago no leilão, não mais do imóvel em si.
 
 Algumas exceções e cuidados práticos:
 - **Dívidas de condomínio**: como são "propter rem" (ligadas ao imóvel), a jurisprudência do STJ tende a manter essas dívidas vinculadas ao imóvel mesmo depois do leilão — mas se o edital do leilão não avisar sobre elas, o comprador pode pedir para reservar parte do valor pago para quitar isso.
 - **Dívidas de IPTU e outros tributos**: o STJ já decidiu que o edital **não pode** simplesmente jogar essa responsabilidade para o comprador — os créditos tributários antigos ficam vinculados ao valor pago no leilão, não ao novo dono.
 - **Hipoteca**: o banco/credor precisa ser avisado do leilão para poder reivindicar seu crédito sobre o valor pago; se ficar calado depois de avisado, perde a garantia.
 
-Depois de assinado o auto de arrematação, o negócio é praticamente definitivo (irretratável) — só pode ser desfeito em situações bem específicas previstas em lei.
-""",
-        "conteudo_md": """\
-## 27.1 Natureza jurídica — aquisição originária
+Depois de assinado o auto de arrematação, o negócio é praticamente definitivo (irretratável) — só pode ser desfeito em situações bem específicas previstas em lei.',
+  '## 27.1 Natureza jurídica — aquisição originária
 
 **Aquisição originária:** A arrematação (praça para imóveis, leilão para móveis) rompe com os gravames que cercavam o bem — o arrematante recebe a propriedade livre de ônus, sem relação jurídica com o antigo titular, sub-rogando-se os débitos no PREÇO da arrematação (CPC, arts. 825, II, e 879-903).
 
@@ -1856,25 +1762,22 @@ Evicção: subsiste mesmo em hasta pública (CC, art. 447); prescrição em 3 an
 
 Bem de família (Lei 8.009/1990) vendido em fraude contra credores: se a venda for anulada e o bem retornar ao patrimônio do devedor, perde a proteção da impenhorabilidade — pune-se a má-fé (STJ, AgRg no REsp 1.085.381/SP) — jurisprudência não é uniforme quanto a esse ponto.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "28",
-        "titulo": "Condomínio Geral (Não Edilício)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "condomínio geral, coproprietários, preferência",
-        "explicacao_simples_md": """\
-"Condomínio geral" é quando duas ou mais pessoas são donas do mesmo bem ao mesmo tempo — diferente do condomínio de prédio (que tem regras próprias, chamado de "edilício"). Pode surgir de várias formas: por vontade das partes (comprar junto), por vontade de terceiro (herança, doação) ou por força da própria lei (por exemplo, antes da partilha de uma herança, todos os herdeiros são donos em condomínio).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '28',
+  'Condomínio Geral (Não Edilício)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['condomínio geral','coproprietários','preferência']::text[],
+  '"Condomínio geral" é quando duas ou mais pessoas são donas do mesmo bem ao mesmo tempo — diferente do condomínio de prédio (que tem regras próprias, chamado de "edilício"). Pode surgir de várias formas: por vontade das partes (comprar junto), por vontade de terceiro (herança, doação) ou por força da própria lei (por exemplo, antes da partilha de uma herança, todos os herdeiros são donos em condomínio).
 
 Cada condômino (cada "dono junto") pode: usar a coisa livremente, defender a posse, dar sua parte em garantia (hipoteca da sua fração), e vender sua parte — mas os outros condôminos têm **preferência** para comprar antes de um estranho (a não ser que a venda seja para outro condômino, aí não há preferência a respeitar).
 
 Se um condômino usa o bem sozinho, com exclusividade (por exemplo, mora sozinho numa casa que é de dois irmãos), ele deve **pagar um aluguel proporcional** para o outro — a partir do momento em que for notificado disso.
 
-Um ponto interessante: se um condômino usar uma parte exclusiva do imóvel por muito tempo, sem oposição dos demais, ele pode até chegar a usucapir a parte inteira. Por isso, se você é dono junto com alguém e não quer correr esse risco, formalize um contrato de aluguel/comodato da parte que não é sua — isso evita que a posse dele vire "dona de tudo" no futuro.
-""",
-        "conteudo_md": """\
-## 28.1 Espécies e classificação
+Um ponto interessante: se um condômino usar uma parte exclusiva do imóvel por muito tempo, sem oposição dos demais, ele pode até chegar a usucapir a parte inteira. Por isso, se você é dono junto com alguém e não quer correr esse risco, formalize um contrato de aluguel/comodato da parte que não é sua — isso evita que a posse dele vire "dona de tudo" no futuro.',
+  '## 28.1 Espécies e classificação
 
 **Ficha técnica — Espécies de condomínio geral quanto à origem**
 
@@ -1906,25 +1809,22 @@ Observar prescrição trienal (CC, art. 206, § 3º) e possibilidade de USUCAPI�
 
 Nenhum condômino pode alterar a destinação ou locar a coisa comum a terceiros sem consentimento dos demais (CC, art. 1.314, parágrafo único, e art. 1.323) — decisões por maioria de quotas; condômino preterido pode reivindicar o bem do locatário, mesmo sem necessidade de ação de despejo (TJSP).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "29",
-        "titulo": "Condomínio Edilício — Instituição e Convenção",
-        "livro": LIVRO_SCAVONE,
-        "tags": "condomínio edilício, convenção de condomínio, fração ideal",
-        "explicacao_simples_md": """\
-"Condomínio edilício" é o nome técnico do condomínio de prédio/edifício, com unidades autônomas (apartamentos, salas) e áreas comuns (hall, garagem, área de lazer). Ele nasce formalmente por um ato chamado **instituição** — registrado em cartório, que define quais são as unidades exclusivas, quais são as áreas comuns, e qual a "fração ideal" de cada unidade (a porcentagem que cada apartamento representa do total do terreno/prédio).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '29',
+  'Condomínio Edilício — Instituição e Convenção',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['condomínio edilício','convenção de condomínio','fração ideal']::text[],
+  '"Condomínio edilício" é o nome técnico do condomínio de prédio/edifício, com unidades autônomas (apartamentos, salas) e áreas comuns (hall, garagem, área de lazer). Ele nasce formalmente por um ato chamado **instituição** — registrado em cartório, que define quais são as unidades exclusivas, quais são as áreas comuns, e qual a "fração ideal" de cada unidade (a porcentagem que cada apartamento representa do total do terreno/prédio).
 
 Depois de instituído, o condomínio ainda precisa de uma **convenção** — o "regulamento geral" que define como as contas são divididas, como o condomínio é administrado, quais são as regras das assembleias e as punições para quem descumpre as regras. A convenção precisa ser assinada por donos de pelo menos 2/3 das frações ideais, mas, uma vez aprovada, ela vale para **todo mundo** que more ou possua uma unidade ali — mesmo quem não assinou.
 
 Um ponto técnico importante: mudar a "especificação" do condomínio (por exemplo, transformar duas vagas de garagem em uma unidade autônoma) equivale a mexer no próprio direito de propriedade de todo mundo — por isso, ao contrário de decisões comuns de assembleia (que às vezes bastam 2/3), esse tipo de alteração exige a **concordância de 100% dos condôminos**.
 
-A convenção só precisa estar registrada em cartório para valer contra **terceiros** (por exemplo, um comprador futuro de uma unidade). Entre os próprios condôminos, a convenção já aprovada vale mesmo sem registro.
-""",
-        "conteudo_md": """\
-## 29.1 Instituição — natureza jurídica e fração ideal
+A convenção só precisa estar registrada em cartório para valer contra **terceiros** (por exemplo, um comprador futuro de uma unidade). Entre os próprios condôminos, a convenção já aprovada vale mesmo sem registro.',
+  '## 29.1 Instituição — natureza jurídica e fração ideal
 
 **Instituição x especificação:** Instituição (CC, art. 1.332): ato entre vivos ou testamento, registrado, que discrimina unidades exclusivas e áreas comuns, fixa frações ideais e a destinação. Especificação: torna jurídico o fracionamento — sem ela é impossível o rateio de despesas.
 
@@ -1940,16 +1840,15 @@ Deve fixar: quota e forma de pagamento das contribuições, forma de administra�
 
 Registro é exigido apenas para oponibilidade a TERCEIROS — entre os próprios condôminos, a convenção aprovada é eficaz mesmo sem registro (Súmula 260/STJ).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "30",
-        "titulo": "Usucapião — Teoria Geral e Espécies",
-        "livro": LIVRO_SCAVONE,
-        "tags": "usucapião, posse, prescrição aquisitiva",
-        "explicacao_simples_md": """\
-Usucapião é a forma de virar dono de um imóvel **pela posse prolongada** — não porque comprou, mas porque ficou tempo suficiente na posse, cumprindo certos requisitos. Tecnicamente, a propriedade já é sua no momento exato em que os requisitos se completam; a sentença judicial só **declara** isso depois (não "cria" o direito). Não incide ITBI na usucapião, exatamente porque não é uma "compra".
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '30',
+  'Usucapião — Teoria Geral e Espécies',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['usucapião','posse','prescrição aquisitiva']::text[],
+  'Usucapião é a forma de virar dono de um imóvel **pela posse prolongada** — não porque comprou, mas porque ficou tempo suficiente na posse, cumprindo certos requisitos. Tecnicamente, a propriedade já é sua no momento exato em que os requisitos se completam; a sentença judicial só **declara** isso depois (não "cria" o direito). Não incide ITBI na usucapião, exatamente porque não é uma "compra".
 
 Existem vários tipos, com prazos e requisitos diferentes — os mais importantes:
 
@@ -1960,10 +1859,8 @@ Existem vários tipos, com prazos e requisitos diferentes — os mais importante
 - **Coletiva** (5 anos): quando uma área maior é ocupada por várias famílias de baixa renda, cada uma com até 250m², forma-se um condomínio especial.
 - **Por abandono do lar** (2 anos): quando um casal se separa, um dos dois vai embora e abandona o imóvel comum, o que ficou pode usucapir a parte do outro depois de 2 anos, se o imóvel for de até 250m².
 
-Alguns pontos importantes que valem para qualquer tipo de usucapião: a posse não pode ser "precária" (por exemplo, um inquilino nunca usucapi o imóvel que aluga, porque a posse dele reconhece que existe um dono); e não corre usucapião entre cônjuges casados, entre pais e filhos menores, ou contra pessoas absolutamente incapazes.
-""",
-        "conteudo_md": """\
-## 30.1 Conceito e natureza
+Alguns pontos importantes que valem para qualquer tipo de usucapião: a posse não pode ser "precária" (por exemplo, um inquilino nunca usucapi o imóvel que aluga, porque a posse dele reconhece que existe um dono); e não corre usucapião entre cônjuges casados, entre pais e filhos menores, ou contra pessoas absolutamente incapazes.',
+  '## 30.1 Conceito e natureza
 
 **Prescrição aquisitiva:** A usucapião transforma um fato (posse qualificada) em direito (propriedade) — modo ORIGINÁRIO de aquisição (posição majoritária: Silvio Rodrigues, Carlos Roberto Gonçalves, Maria Helena Diniz), de modo que o bem é adquirido livre de quaisquer ônus, gravames ou vícios anteriores. Sentença é meramente DECLARATÓRIA.
 
@@ -2046,16 +1943,15 @@ NÃO é possível usucapião de ÁREAS COMUNS de condomínio edilício (vaga de 
 
 > ⚠ Dica prática: para evitar usucapião pelo coproprietário que ocupa a parte de outrem, formalizar comodato ou locação da fração não própria — a partir da renitência em restituir, a posse torna-se precária e obsta a prescrição aquisitiva.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "31",
-        "titulo": "Justo Título — Conceito e Requisitos",
-        "livro": LIVRO_SCAVONE,
-        "tags": "justo título, usucapião ordinária, boa-fé",
-        "explicacao_simples_md": """\
-"Justo título" é um conceito usado principalmente na usucapião ordinária. É um documento que, **em teoria**, seria suficiente para transferir a propriedade — mas que, naquele caso concreto, não conseguiu fazer isso por causa de algum defeito (por exemplo, foi comprado de alguém que não era o verdadeiro dono).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '31',
+  'Justo Título — Conceito e Requisitos',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['justo título','usucapião ordinária','boa-fé']::text[],
+  '"Justo título" é um conceito usado principalmente na usucapião ordinária. É um documento que, **em teoria**, seria suficiente para transferir a propriedade — mas que, naquele caso concreto, não conseguiu fazer isso por causa de algum defeito (por exemplo, foi comprado de alguém que não era o verdadeiro dono).
 
 Não confunda com "documento justo" no sentido de "correto" — é justamente o contrário: se o título fosse 100% perfeito, a propriedade já teria sido transferida de verdade, e nem precisaria de usucapião.
 
@@ -2063,10 +1959,8 @@ Alguns detalhes técnicos importantes:
 - Não existe justo título "imaginário" — você precisa ter um documento real, mesmo que com defeito. Só "achar" que tem um título não conta.
 - Hoje a jurisprudência entende que o justo título **não precisa estar registrado** no cartório para servir de base para a usucapião.
 - Uma promessa de compra e venda pode servir como justo título, mesmo sem registro, desde que seja irretratável e já esteja totalmente paga.
-- A boa-fé (acreditar sinceramente que era dono) é presumida quando existe um justo título, mas essa boa-fé precisa se manter durante **todo** o período em que você teve a posse — se em algum momento você descobrir que tem algum problema no seu título e mesmo assim continuar, perde a boa-fé daquele momento em diante.
-""",
-        "conteudo_md": """\
-**Conceito:** Justo título é o ato jurídico hábil, EM TESE, para transferir a propriedade, mas que não produz esse efeito no caso concreto por vício (ex.: aquisição *a non domino*, ausência de poder de disposição do transmitente, ato anulável). Não se confunde com "título justo" no sentido de equidade.
+- A boa-fé (acreditar sinceramente que era dono) é presumida quando existe um justo título, mas essa boa-fé precisa se manter durante **todo** o período em que você teve a posse — se em algum momento você descobrir que tem algum problema no seu título e mesmo assim continuar, perde a boa-fé daquele momento em diante.',
+  '**Conceito:** Justo título é o ato jurídico hábil, EM TESE, para transferir a propriedade, mas que não produz esse efeito no caso concreto por vício (ex.: aquisição *a non domino*, ausência de poder de disposição do transmitente, ato anulável). Não se confunde com "título justo" no sentido de equidade.
 
 **Ficha técnica — Requisitos do justo título**
 
@@ -2087,16 +1981,15 @@ Transação, sentença/escritura de divisão de coisa comum: têm efeito meramen
 
 Boa-fé (integração ética do justo título): presunção relativa (*juris tantum*) quando há justo título (CC, art. 1.201, parágrafo único) — deve persistir durante TODO o período possessório (CC, art. 1.202).
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-    {
-        "numero": "32",
-        "titulo": "Usucapião Extrajudicial (Lei 6.015/1973, art. 216-A)",
-        "livro": LIVRO_SCAVONE,
-        "tags": "usucapião extrajudicial, cartório, provimento 149/2023",
-        "explicacao_simples_md": """\
-Hoje em dia, não é mais necessário sempre entrar com um processo judicial para conseguir uma usucapião — existe a via **extrajudicial**, feita diretamente no cartório de registro de imóveis (sem prejuízo de ainda poder optar pela via judicial se preferir).
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
+insert into topicos_direito (numero, titulo, livro, tags, explicacao_simples, conteudo_tecnico) values (
+  '32',
+  'Usucapião Extrajudicial (Lei 6.015/1973, art. 216-A)',
+  'Luiz Antônio Scavone Jr. — Direito Imobiliário: Teoria e Prática',
+  ARRAY['usucapião extrajudicial','cartório','provimento 149/2023']::text[],
+  'Hoje em dia, não é mais necessário sempre entrar com um processo judicial para conseguir uma usucapião — existe a via **extrajudicial**, feita diretamente no cartório de registro de imóveis (sem prejuízo de ainda poder optar pela via judicial se preferir).
 
 Documentos exigidos:
 - Uma **ata notarial** (feita por tabelião) que atesta há quanto tempo você está na posse.
@@ -2108,10 +2001,8 @@ Se algum vizinho ou o antigo dono não assinar a planta, o cartório notifica es
 
 Se alguém impugnar de forma séria e fundamentada, o processo sai do cartório e vai para a Justiça. Se a impugnação não tiver fundamento, o cartório simplesmente rejeita e segue com o registro.
 
-Um detalhe técnico relevante: mesmo depois de registrada a usucapião extrajudicial, penhoras e outros gravames judiciais anteriores **não somem automaticamente** — é preciso pedir formalmente a baixa deles em cada processo de origem.
-""",
-        "conteudo_md": """\
-## 32.1 Procedimento e documentos exigidos
+Um detalhe técnico relevante: mesmo depois de registrada a usucapião extrajudicial, penhoras e outros gravames judiciais anteriores **não somem automaticamente** — é preciso pedir formalmente a baixa deles em cada processo de origem.',
+  '## 32.1 Procedimento e documentos exigidos
 
 Base legal: Art. 1.071 do CPC/2015, que incluiu o art. 216-A na LRP, com alterações da Lei 14.382/2022; regulamentação pelo Provimento 149/2023 do CNJ (arts. 398-423). Processado perante o Registro de Imóveis da comarca, sem prejuízo da via judicial.
 
@@ -2132,7 +2023,6 @@ Impugnação justificada: remessa ao Judiciário, cabendo ao requerente adequar 
 
 > ⚠ Atenção: gravames judiciais anteriores (penhoras etc.) NÃO se extinguem automaticamente com o registro da usucapião extrajudicial — o Provimento 149/2023 exige requerimento de baixa junto a cada juízo de origem, ponto criticado pelo autor por incompatibilidade com a natureza originária da aquisição.
 
-*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*
-""",
-    },
-]
+*Fonte: Luiz Antônio Scavone Jr., Direito Imobiliário: Teoria e Prática*'
+);
+
