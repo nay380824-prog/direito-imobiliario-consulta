@@ -49,6 +49,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .topico-livro{font-size:11px;color:#999;margin-top:3px}
 .topico-tags{margin-top:6px;display:flex;gap:5px;flex-wrap:wrap}
 .topico-tag{font-size:9px;color:#aaa;background:#f5f4f0;padding:2px 7px;border-radius:10px}
+.topico-snippet{font-size:12px;color:#555;line-height:1.55;margin-top:7px;background:#faf9fd;border:0.5px solid #efe9fa;border-radius:6px;padding:7px 9px}
+.topico-snippet mark{background:#ffe89c;color:#4a3384;padding:0 2px;border-radius:2px;font-weight:600}
+.ver-mais{text-align:center;font-size:12px;color:#5b3fa0;cursor:pointer;padding:12px;font-weight:600}
+.ver-mais:hover{text-decoration:underline}
 
 #loading,#empty{display:none;text-align:center;padding:30px;color:#bbb;font-size:12px}
 
@@ -132,7 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="novo-form" class="tp-form" style="display:none"></div>
 
   <div class="search-row">
-    <input type="text" id="busca-input" class="search-input" placeholder="Buscar por palavra-chave, artigo, tema..." oninput="debounceSearch()">
+    <input type="text" id="busca-input" class="search-input" placeholder="Descreva a situação ou pergunta (ex: venda pro filho sem avisar os irmãos)..." oninput="debounceSearch()">
     <select id="livro-select" class="livro-select" onchange="carregarTopicos()">
       <option value="">Todos os livros</option>
     </select>
@@ -223,6 +227,39 @@ function debounceSearch(){
   searchTimer=setTimeout(carregarTopicos,400);
 }
 
+// ─── Transforma frases naturais em busca "OU" (qualquer palavra relevante) ──
+var STOPWORDS=['a','o','as','os','de','da','do','das','dos','em','um','uma','uns','umas','com','sem','para','por','que','se','e','ou','no','na','nos','nas','ao','aos','à','às','é','são','foi','ser','tem','têm','como','mais','muito','já','não','sim','meu','minha','seu','sua','isso','esse','essa','este','esta','pelo','pela'];
+var SEARCH_CAP=10;
+var searchExpanded=false;
+
+function significantWords(termo){
+  return termo.trim().split(/\s+/).map(function(w){return w.toLowerCase();}).filter(function(w){
+    return w.length>1 && STOPWORDS.indexOf(w)===-1;
+  });
+}
+
+function buildSearchQuery(termo){
+  var words=significantWords(termo);
+  if(!words.length)return termo;
+  return words.join(' or ');
+}
+
+// Pontua cada tópico pela quantidade/local das palavras encontradas, pra ordenar os mais relevantes primeiro
+function scoreRelevance(r,words){
+  var titulo=(r.titulo||'').toLowerCase();
+  var tags=(r.tags||[]).join(' ').toLowerCase();
+  var simples=normalizePlain(r.explicacao_simples||'').toLowerCase();
+  var tecnico=normalizePlain(r.conteudo_tecnico||'').toLowerCase();
+  var score=0;
+  words.forEach(function(w){
+    if(titulo.indexOf(w)>-1)score+=6;
+    if(tags.indexOf(w)>-1)score+=4;
+    if(simples.indexOf(w)>-1)score+=Math.min(3,(simples.split(w).length-1))*2;
+    if(tecnico.indexOf(w)>-1)score+=Math.min(3,(tecnico.split(w).length-1));
+  });
+  return score;
+}
+
 function toggleTagFilters(){
   document.getElementById('tag-body').classList.toggle('open');
 }
@@ -239,6 +276,8 @@ async function iniciarApp(){
     });
   }catch(e){console.error(e);}
   carregarTopicos();
+  var buscaInput=document.getElementById('busca-input');
+  if(buscaInput)buscaInput.focus();
 }
 
 async function carregarTopicos(){
@@ -247,16 +286,26 @@ async function carregarTopicos(){
   var loading=document.getElementById('loading');
   var list=document.getElementById('topico-list');
   var empty=document.getElementById('empty');
+  searchExpanded=false;
   loading.style.display='block';
   list.innerHTML='';
   empty.style.display='none';
   try{
     var params=['select=*'];
     if(livro)params.push('livro=eq.'+encodeURIComponent(livro));
-    if(termo)params.push('busca=wfts(portuguese).'+encodeURIComponent(termo));
+    if(termo)params.push('busca=wfts(portuguese).'+encodeURIComponent(buildSearchQuery(termo)));
     params.push('order=numero');
     var rows=await dbFetch('topicos_direito?'+params.join('&'));
-    allResults=(rows||[]).slice().sort(function(a,b){return (parseFloat(a.numero)||0)-(parseFloat(b.numero)||0);});
+    allResults=(rows||[]).slice();
+    if(termo){
+      var words=significantWords(termo);
+      allResults.sort(function(a,b){
+        var diff=scoreRelevance(b,words)-scoreRelevance(a,words);
+        return diff!==0?diff:(parseFloat(a.numero)||0)-(parseFloat(b.numero)||0);
+      });
+    }else{
+      allResults.sort(function(a,b){return (parseFloat(a.numero)||0)-(parseFloat(b.numero)||0);});
+    }
   }catch(e){
     console.error('Erro na busca:',e);
     allResults=[];
@@ -291,6 +340,7 @@ function toggleTag(btn){
 }
 
 function renderList(){
+  var termo=document.getElementById('busca-input').value.trim();
   var filtered=allResults.filter(function(r){
     if(!activeTags.length)return true;
     return (r.tags||[]).some(function(t){return activeTags.indexOf(t)>-1;});
@@ -303,15 +353,70 @@ function renderList(){
     return;
   }
   empty.style.display='none';
-  list.innerHTML=filtered.map(function(r){
+  var capActive=termo&&!searchExpanded&&filtered.length>SEARCH_CAP;
+  var toShow=capActive?filtered.slice(0,SEARCH_CAP):filtered;
+  var html=toShow.map(function(r){
     var tagsHtml=(r.tags||[]).map(function(t){return '<span class="topico-tag">'+escapeHtml(t)+'</span>';}).join('');
+    var snippetHtml=termo?'<div class="topico-snippet">'+pickSnippet(r,termo)+'</div>':'';
     return '<div class="topico-card" onclick="abrirModal(\''+r.id+'\')">'
       +'<span class="topico-numero">'+escapeHtml(r.numero)+'</span>'
       +'<span class="topico-titulo">'+escapeHtml(r.titulo)+'</span>'
       +'<div class="topico-livro">'+escapeHtml(r.livro)+'</div>'
+      +snippetHtml
       +(tagsHtml?'<div class="topico-tags">'+tagsHtml+'</div>':'')
       +'</div>';
   }).join('');
+  if(capActive){
+    html+='<div class="ver-mais" onclick="verTodosResultados()">Mostrando os '+SEARCH_CAP+' mais relevantes de '+filtered.length+' — ver todos</div>';
+  }
+  list.innerHTML=html;
+}
+
+function verTodosResultados(){
+  searchExpanded=true;
+  renderList();
+}
+
+// ─── TRECHO DESTACADO (snippet) NOS RESULTADOS DE BUSCA ───────────────────
+function normalizePlain(text){
+  return (text||'').replace(/[#*>`]/g,'').replace(/\|/g,' ').replace(/\n+/g,' ').replace(/\s+/g,' ').trim();
+}
+
+function textHasWord(text,words){
+  var lt=text.toLowerCase();
+  return words.some(function(w){return lt.indexOf(w)>-1;});
+}
+
+function extractSnippet(text,words){
+  var plain=normalizePlain(text);
+  if(!plain)return '';
+  var lowerPlain=plain.toLowerCase();
+  var idx=-1,matchLen=0;
+  for(var i=0;i<words.length;i++){
+    var p=lowerPlain.indexOf(words[i]);
+    if(p>-1&&(idx===-1||p<idx)){idx=p;matchLen=words[i].length;}
+  }
+  if(idx===-1){
+    var head=plain.slice(0,170);
+    return escapeHtml(head)+(plain.length>170?'…':'');
+  }
+  var start=Math.max(0,idx-60);
+  var end=Math.min(plain.length,idx+matchLen+110);
+  var before=plain.slice(start,idx);
+  var match=plain.slice(idx,idx+matchLen);
+  var after=plain.slice(idx+matchLen,end);
+  return (start>0?'…':'')+escapeHtml(before)+'<mark>'+escapeHtml(match)+'</mark>'+escapeHtml(after)+(end<plain.length?'…':'');
+}
+
+function pickSnippet(r,termo){
+  var words=significantWords(termo);
+  var simples=r.explicacao_simples||'';
+  var tecnico=r.conteudo_tecnico||'';
+  if(words.length){
+    if(simples&&textHasWord(normalizePlain(simples).toLowerCase(),words))return extractSnippet(simples,words);
+    if(tecnico&&textHasWord(normalizePlain(tecnico).toLowerCase(),words))return extractSnippet(tecnico,words);
+  }
+  return extractSnippet(simples||tecnico,[]);
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────
